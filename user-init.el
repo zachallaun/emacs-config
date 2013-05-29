@@ -8,6 +8,8 @@
 (if window-system (tool-bar-mode -1))
 (setq column-number-mode t)
 
+(set-default-font "Source Code Pro-11")
+
 ;;; Packages ;;;
 ;;;;;;;;;;;;;;;;
 
