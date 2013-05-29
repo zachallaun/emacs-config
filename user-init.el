@@ -137,3 +137,10 @@
 ;; markdown-mode
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;; in programming modes, show trailing whitespace and leading tabs, and
+;; highlight characters past column 80
+(custom-set-variables
+  '(whitespace-line-column 80)
+  '(whitespace-style '(face trailing indentation::space lines-tail)))
+(add-hook 'prog-mode-hook 'whitespace-mode)
