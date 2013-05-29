@@ -11,6 +11,9 @@
 ;;; Packages ;;;
 ;;;;;;;;;;;;;;;;
 
+;; Manually installed packages in lib/
+(add-to-list 'load-path "~/.emacs.d/lib/")
+
 ;; MEPLA
 (require 'package)
 (add-to-list 'package-archives
@@ -57,3 +60,6 @@
 ;; Rainbow delimiters
 (add-hook 'prog-mode-hook  'rainbow-delimiters-mode)
 (add-hook 'nrepl-mode-hook 'rainbow-delimiters-mode)
+
+;; Julia
+(load "julia-mode")
