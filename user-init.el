@@ -88,16 +88,17 @@
 (setq ido-everywhere t)
 (ido-mode 1)
 
-;; Smex - M-x Ido-like enhancement
+;; smex - M-x Ido-like enhancement
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;; old M-x
 
-;; Highlight matching parentheses when the cursor is on them.
+;; highlight matching parentheses when the cursor is on them
 (show-paren-mode 1)
 
 ;; color-theme-solarized
+;; XXX: currently broken and shitty in the terminal
 (load-theme 'solarized-light t)
 
 ;; nrepl
