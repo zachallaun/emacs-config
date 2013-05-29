@@ -47,6 +47,9 @@
 ;; display column number
 (setq column-number-mode t)
 
+;; automatically revert files when they change
+(global-auto-revert-mode t)
+
 ;; highlight the current line
 (global-hl-line-mode 1)
 
