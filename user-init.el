@@ -22,6 +22,7 @@
   '(paredit
     rainbow-delimiters
     auto-complete
+    smex
 
     clojure-mode
     nrepl
@@ -68,6 +69,12 @@
 (setq ido-everywhere t)
 (ido-mode 1)
 
+;; Smex - M-x Ido-like enhancement
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;; old M-x
+
 ;; Highlight matching parentheses when the cursor is on them.
 (show-paren-mode 1)
 
@@ -96,7 +103,7 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
-;; ac-nrepl
+;; auto-complete for nrepl
 (require 'ac-nrepl)
 (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
 (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
