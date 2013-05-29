@@ -21,13 +21,12 @@
   (package-refresh-contents))
 
 (defvar user-packages
-  '(;; major modes
-    clojure-mode
+  '(clojure-mode
+    nrepl
 
-    ;; minor modes
     paredit
+    rainbow-delimiters
     
-    ;; themes
     color-theme-solarized
     ))
 
@@ -38,11 +37,23 @@
 ;;; Configuration ;;;
 ;;;;;;;;;;;;;;;;;;;;;
 
+;; Highlight matching parentheses when the cursor is on them.
+(show-paren-mode 1)
+
 ;; Solarized
 (load-theme 'solarized-light t)
+
+;; nrepl
+(add-hook 'nrepl-interaction-mode-hook
+	  'nrepl-turn-on-eldoc-mode)
 
 ;; Paredit hooks
 (require 'paredit)
 (add-hook 'clojure-mode-hook    'paredit-mode)
+(add-hook 'nrepl-mode-hook      'paredit-mode)
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 (add-hook 'lisp-mode-hook       'paredit-mode)
+
+;; Rainbow delimiters
+(add-hook 'prog-mode-hook  'rainbow-delimiters-mode)
+(add-hook 'nrepl-mode-hook 'rainbow-delimiters-mode)
