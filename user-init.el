@@ -67,6 +67,10 @@
 ;; display column number
 (setq column-number-mode t)
 
+;; open to an empty *scratch* buffer
+(setq initial-scratch-message "")
+(setq initial-buffer-choice t)
+
 ;; automatically revert files when they change
 (global-auto-revert-mode t)
 
