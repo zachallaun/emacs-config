@@ -38,6 +38,10 @@
 ;;; Configuration ;;;
 ;;;;;;;;;;;;;;;;;;;;;
 
+;; OSX: treat the command key as the meta key
+(setq mac-option-modifier 'none)
+(setq mac-command-modifier 'meta)
+
 ;; disable things that are dumb
 (blink-cursor-mode 0)
 (scroll-bar-mode -1)
