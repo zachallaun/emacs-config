@@ -67,6 +67,9 @@
 ;; display column number
 (setq column-number-mode t)
 
+;; display line numbers in programming modes
+(add-hook 'prog-mode-hook 'linum-mode)
+
 ;; open to an empty *scratch* buffer
 (setq initial-scratch-message "")
 (setq initial-buffer-choice t)
@@ -99,6 +102,7 @@
 
 ;; color-theme-solarized
 ;; XXX: currently broken and shitty in the terminal
+(setq solarized-italic nil)
 (load-theme 'solarized-light t)
 
 ;; nrepl
