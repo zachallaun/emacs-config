@@ -19,17 +19,31 @@
   (package-refresh-contents))
 
 (defvar user-packages
-  '(paredit
+  '(;; structured editing for Lisp S-expressions and delimiters
+    paredit
+
+    ;; nested delimiters (parens, brackets, etc.) are colored differently
     rainbow-delimiters
+
+    ;; auto-completion w/ popup box
     auto-complete
+
+    ;; enhanced Ido-mode-like M-x
     smex
 
+    ;; font-lock, indentation, navigation for Clojure
     clojure-mode
+
+    ;; emacs client for nREPL, an alternative to slime + swank-clojure
     nrepl
+
+    ;; auto-complete extension for use with nrepl
     ac-nrepl
 
+    ;; auto-complete extension for Python
     jedi
 
+    ;; the solarized color theme for use with load-theme
     color-theme-solarized))
 
 (dolist (p user-packages)
