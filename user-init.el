@@ -19,7 +19,11 @@
   (package-refresh-contents))
 
 (defvar user-packages
-  '(;; structured editing for Lisp S-expressions and delimiters
+  '(;; language modes
+    clojure-mode
+    markdown-mode
+
+    ;; structured editing for Lisp S-expressions and delimiters
     paredit
 
     ;; nested delimiters (parens, brackets, etc.) are colored differently
@@ -30,9 +34,6 @@
 
     ;; enhanced Ido-mode-like M-x
     smex
-
-    ;; font-lock, indentation, navigation for Clojure
-    clojure-mode
 
     ;; emacs client for nREPL, an alternative to slime + swank-clojure
     nrepl
@@ -123,3 +124,7 @@
 (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'nrepl-mode))
+
+;; markdown-mode
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
