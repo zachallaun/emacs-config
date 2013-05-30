@@ -23,6 +23,9 @@
     clojure-mode
     markdown-mode
 
+    ;; interface for Git through Emacs
+    magit
+
     ;; structured editing for Lisp S-expressions and delimiters
     ;; cheatsheet: http://mumble.net/~campbell/emacs/paredit.html
     paredit
@@ -102,6 +105,9 @@
 
 ;;; Package config ;;;
 ;;;;;;;;;;;;;;;;;;;;;;
+
+;; magit
+(global-set-key (kbd "M-g s") 'magit-status)
 
 ;; Ido everywhere
 (setq ido-enable-flex-matching t)
