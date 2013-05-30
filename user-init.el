@@ -52,8 +52,8 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
-;;; Configuration ;;;
-;;;;;;;;;;;;;;;;;;;;;
+;;; Emacs config ;;;
+;;;;;;;;;;;;;;;;;;;;
 
 ;; OSX: treat the command key as the meta key
 (setq mac-option-modifier 'none)
@@ -75,6 +75,9 @@
 (setq initial-scratch-message "")
 (setq initial-buffer-choice t)
 
+;; maximize the window on open
+(add-hook 'after-init-hook 'toggle-frame-maximized)
+
 ;; automatically revert files when they change
 (global-auto-revert-mode t)
 
@@ -87,6 +90,19 @@
 ;; font family
 (set-default-font "Source Code Pro-12")
 
+;; highlight matching parentheses when the cursor is on them
+(show-paren-mode 1)
+
+;; in programming modes, show trailing whitespace and leading tabs, and
+;; highlight characters past column 80
+(custom-set-variables
+  '(whitespace-line-column 80)
+  '(whitespace-style '(face trailing indentation::space lines-tail)))
+(add-hook 'prog-mode-hook 'whitespace-mode)
+
+;;; Package config ;;;
+;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Ido everywhere
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
@@ -97,9 +113,6 @@
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;; old M-x
-
-;; highlight matching parentheses when the cursor is on them
-(show-paren-mode 1)
 
 ;; color-theme-solarized
 ;; XXX: currently broken and shitty in the terminal
@@ -138,10 +151,3 @@
 ;; markdown-mode doesn't have default file extensions, so they need to be set
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
-;; in programming modes, show trailing whitespace and leading tabs, and
-;; highlight characters past column 80
-(custom-set-variables
-  '(whitespace-line-column 80)
-  '(whitespace-style '(face trailing indentation::space lines-tail)))
-(add-hook 'prog-mode-hook 'whitespace-mode)
