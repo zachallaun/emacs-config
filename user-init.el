@@ -68,6 +68,10 @@
 (mouse-wheel-mode -1)
 (if window-system (tool-bar-mode -1))
 
+;; overried "yes" or "no" prompts to always be "y" or "n" prompts
+(defadvice yes-or-no-p (around _ activate)
+  (setq ad-return-value (y-or-n-p (ad-get-arg 0))))
+
 ;; display column number
 (setq column-number-mode t)
 
