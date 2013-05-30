@@ -39,7 +39,7 @@
     ;; enhanced Ido-mode-like M-x
     smex
 
-    ;; emacs client for nREPL, an alternative to slime + swank-clojure
+    ;; Emacs client for nREPL, an alternative to slime + swank-clojure
     nrepl
 
     ;; auto-complete extension for use with nrepl
@@ -129,7 +129,7 @@
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;; old M-x
 
 ;; color-theme-solarized
-;; XXX: currently broken and shitty in the terminal
+;; XXX: currently broken and shitty in terminal Emacs
 (setq solarized-italic nil)
 (load-theme 'solarized-light t)
 
