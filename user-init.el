@@ -107,6 +107,10 @@
   '(whitespace-style '(face trailing indentation::space lines-tail)))
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
+;; use Emacs terminfo instead of system terminfo
+;; this fixes terminal rendering issues
+(setq system-uses-terminfo nil)
+
 ;;; Package config ;;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
