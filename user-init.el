@@ -22,6 +22,7 @@
   '(;; language modes
     clojure-mode
     markdown-mode
+    haml-mode
 
     ;; interface for Git through Emacs
     magit
