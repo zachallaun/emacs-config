@@ -143,6 +143,13 @@
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 (add-hook 'lisp-mode-hook       'paredit-mode)
 
+;; paredit: don't insert a space before delimiters
+(add-hook 'paredit-mode-hook
+	  (lambda ()
+	    (add-to-list (make-local-variable
+			  'paredit-space-for-delimiter-predicates)
+			 (lambda (_ _) nil))))
+
 ;; rainbow-delimiters
 (add-hook 'prog-mode-hook  'rainbow-delimiters-mode)
 (add-hook 'nrepl-mode-hook 'rainbow-delimiters-mode)
