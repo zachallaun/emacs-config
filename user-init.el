@@ -25,6 +25,7 @@
     clojure-mode
     markdown-mode
     haml-mode
+    js2-mode ;; enhansed JavaScript mode for Emacs
 
     ;; interface for Git through Emacs
     magit
@@ -45,8 +46,14 @@
     ;; Emacs client for nREPL, an alternative to slime + swank-clojure
     nrepl
 
+    ;; Node.js REPL
+    nodejs-repl
+
     ;; auto-complete extension for use with nrepl
     ac-nrepl
+
+    ;; auto-complete extension for js2-mode
+    ac-js2
 
     ;; auto-complete extension for Python
     jedi
@@ -136,12 +143,13 @@
 (add-hook 'nrepl-interaction-mode-hook
 	  'nrepl-turn-on-eldoc-mode)
 
-;; paredit
+;; paredit hooks
 (require 'paredit)
 (add-hook 'clojure-mode-hook    'paredit-mode)
 (add-hook 'nrepl-mode-hook      'paredit-mode)
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 (add-hook 'lisp-mode-hook       'paredit-mode)
+(add-hook 'js2-mode-hook        'paredit-mode)
 
 ;; paredit: don't insert a space before delimiters
 (add-hook 'paredit-mode-hook
@@ -175,3 +183,10 @@
 ;; recognize Gemfiles and rake files as Ruby
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
+
+;; js2-mode configuration
+(setq js2-basic-offset 2)
+
+;; enter js2-mode instead of javascript-mode in .js and .json files
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.json\\'" . js2-mode))
