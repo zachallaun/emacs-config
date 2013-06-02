@@ -191,3 +191,8 @@
 ;; enter js2-mode instead of javascript-mode in .js and .json files
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.json\\'" . js2-mode))
+
+;; Common Lisp: use quicklisp's slime
+;; XXX: requires that "quicklisp-slime-helper" be installed via quicklisp
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")
