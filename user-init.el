@@ -70,6 +70,7 @@
 
 ;; disable things that are dumb
 (blink-cursor-mode 0)
+(setq visible-bell t) ;; turns off alert bell
 (scroll-bar-mode -1)
 (mouse-wheel-mode -1)
 (if window-system (tool-bar-mode -1))
