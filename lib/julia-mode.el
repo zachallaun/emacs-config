@@ -27,7 +27,7 @@
     (modify-syntax-entry ?\( "() " table)
     (modify-syntax-entry ?\) ")( " table)
     ;(modify-syntax-entry ?\\ "." table)  ; \ is an operator outside quotes
-    (modify-syntax-entry ?'  "." table)  ; character quote or transpose 
+    (modify-syntax-entry ?'  "." table)  ; character quote or transpose
     ;(modify-syntax-entry ?\" "." table)
     (modify-syntax-entry ?? "." table)
     (modify-syntax-entry ?$ "." table)
@@ -244,6 +244,7 @@
   (setq indent-tabs-mode nil)
   (setq major-mode 'julia-mode)
   (setq mode-name "julia")
+  (run-hooks 'prog-mode-hook)
   (run-hooks 'julia-mode-hook))
 
 (provide 'julia-mode)
