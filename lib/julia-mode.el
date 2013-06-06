@@ -9,7 +9,6 @@
 ; (load "path-to-julia-mode/julia-mode.el")
 ; (require 'julia-mode)
 
-
 (defvar julia-mode-hook nil)
 
 (add-to-list 'auto-mode-alist '("\\.jl\\'" . julia-mode))

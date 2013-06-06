@@ -55,7 +55,10 @@
     jedi
 
     ;; the solarized color theme for use with load-theme
-    color-theme-solarized))
+    color-theme-solarized
+
+    ;; notational velocity-like note taking
+    deft))
 
 (dolist (p user-packages)
   (when (not (package-installed-p p))
@@ -107,7 +110,7 @@
 ;; highlight characters past column 80
 (custom-set-variables
   '(whitespace-line-column 80)
-  '(whitespace-style '(face trailing indentation::space lines-tail)))
+  '(whitespace-style '(face trailing tabs lines-tail)))
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
 ;; use Emacs terminfo instead of system terminfo
@@ -180,8 +183,27 @@
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
 
-
 ;; Common Lisp: use quicklisp's slime
 ;; XXX: requires that "quicklisp-slime-helper" be installed via quicklisp
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "sbcl")
+
+;; deft: share files with nvALT
+(require 'deft)
+(setq deft-directory "~/Dropbox/nvALT/")
+
+;; deft: default to markdown-mode
+(setq deft-extension "md")
+(setq deft-text-mode 'markdown-mode)
+
+;; deft: use the filename as the note title (compatible with nvALT)
+(setq deft-use-filename-as-title t)
+
+;; a "stack" note for things that don't deserve their own note
+(defun deft-open-stack ()
+  (interactive)
+  (deft-open-file "~/Dropbox/nvALT/stack.md")
+  (end-of-buffer))
+
+(global-set-key (kbd "M-'") 'deft)
+(global-set-key (kbd "C-'") 'deft-open-stack)
