@@ -26,6 +26,10 @@
     markdown-mode
     haml-mode
 
+    ;; slime-like support for scheme
+    ;; requires a recent version of racket or guile
+    geiser
+
     ;; interface for Git through Emacs
     magit
 
@@ -152,6 +156,7 @@
 (add-hook 'nrepl-mode-hook      'paredit-mode)
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 (add-hook 'lisp-mode-hook       'paredit-mode)
+(add-hook 'scheme-mode-hook     'paredit-mode)
 
 ;; paredit: don't insert a space before delimiters
 (add-hook 'paredit-mode-hook
@@ -210,3 +215,7 @@
 
 (global-set-key (kbd "M-'") 'deft)
 (global-set-key (kbd "C-'") 'deft-open-stack)
+
+;; geiser config
+(add-hook 'geiser-mode-hook      'paredit-mode)
+(add-hook 'geiser-repl-mode-hook 'paredit-mode)
