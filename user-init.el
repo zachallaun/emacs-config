@@ -78,6 +78,9 @@
 (defadvice yes-or-no-p (around _ activate)
   (setq ad-return-value (y-or-n-p (ad-get-arg 0))))
 
+;; do not confirm before creating a new file
+(setq confirm-nonexistent-file-or-buffer nil)
+
 ;; display column number
 (setq column-number-mode t)
 
