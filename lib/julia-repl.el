@@ -80,7 +80,8 @@
   (jr-smart-split-window)
   (let ((default-directory (jr-choose-directory)))
     (shell jr-buffer-name)
-    (jr-process-send-string julia-basic-repl-path)))
+    (jr-process-send-string (concat julia-basic-repl-path
+                                    " " repl-args))))
 
 (defun julia-repl (&optional repl-args)
   (interactive "P")
