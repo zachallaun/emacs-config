@@ -104,6 +104,9 @@
 ;; highlight the current line
 (global-hl-line-mode 1)
 
+;; insert spaces instead of tabs
+(setq-default indent-tabs-mode nil)
+
 ;; automatically delete trailing whitespace before save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
