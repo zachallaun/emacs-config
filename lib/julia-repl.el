@@ -77,8 +77,8 @@
     (message "Julia REPL not started. M-x julia-repl")))
 
 (defun jr-start-julia-repl (repl-args)
-  (jr-smart-split-window)
   (let ((default-directory (jr-choose-directory)))
+    (jr-smart-split-window)
     (shell jr-buffer-name)
     (jr-process-send-string (concat julia-basic-repl-path
                                     " " repl-args))))
