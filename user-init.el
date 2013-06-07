@@ -171,6 +171,9 @@
 
 ;; Julia
 (load "julia-mode")
+(load "julia-repl")
+(setq julia-basic-repl-path
+      "~/Dropbox/projects/julialang/julia/usr/bin/julia-release-basic")
 
 ;; auto-complete
 (require 'auto-complete-config)
