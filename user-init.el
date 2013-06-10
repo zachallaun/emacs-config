@@ -25,6 +25,7 @@
     clojure-mode
     markdown-mode
     haml-mode
+    scala-mode
 
     ;; slime-like support for scheme
     ;; requires a recent version of racket or guile
