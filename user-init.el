@@ -89,9 +89,6 @@
 ;; display column number
 (setq column-number-mode t)
 
-;; display line numbers in programming modes
-(add-hook 'prog-mode-hook 'linum-mode)
-
 ;; open to an empty *scratch* buffer
 (setq initial-scratch-message "")
 (setq initial-buffer-choice t)
