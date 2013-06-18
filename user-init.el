@@ -223,3 +223,6 @@
 ;; geiser config
 (add-hook 'geiser-mode-hook      'paredit-mode)
 (add-hook 'geiser-repl-mode-hook 'paredit-mode)
+
+;; javascript config
+(setq js-indent-level 2)
