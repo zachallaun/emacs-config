@@ -219,7 +219,13 @@
   (deft-open-file "~/Dropbox/nvALT/stack.md")
   (end-of-buffer))
 
-(global-set-key (kbd "M-'") 'deft)
+;; start deft-mode afresh on each invocation so that incremental search resets
+(defun do-deft ()
+  (interactive)
+  (switch-to-buffer deft-buffer)
+  (deft-mode))
+
+(global-set-key (kbd "M-'") 'do-deft)
 (global-set-key (kbd "C-'") 'deft-open-stack)
 
 ;; geiser config
