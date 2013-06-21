@@ -206,6 +206,9 @@
 (require 'deft)
 (setq deft-directory "~/Dropbox/nvALT/")
 
+;; deft: turn off autosave
+(setq deft-auto-save-interval 0)
+
 ;; deft: default to markdown-mode
 (setq deft-extension "md")
 (setq deft-text-mode 'markdown-mode)
