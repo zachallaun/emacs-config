@@ -79,7 +79,8 @@
 (setq visible-bell t) ;; turns off alert bell
 (scroll-bar-mode -1)
 (mouse-wheel-mode -1)
-(if window-system (tool-bar-mode -1))
+(tool-bar-mode -1)
+(menu-bar-mode -1)
 
 ;; overried "yes" or "no" prompts to always be "y" or "n" prompts
 (defadvice yes-or-no-p (around _ activate)
