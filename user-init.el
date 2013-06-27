@@ -28,6 +28,7 @@
     scala-mode
     sml-mode
     jade-mode
+    yaml-mode
 
     ;; slime-like support for scheme
     ;; requires a recent version of racket or guile
