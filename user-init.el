@@ -118,8 +118,11 @@
 ;; the cursor should be a bar instead of a block
 (setq-default cursor-type 'bar)
 
-;; highlight matching parentheses when the cursor is on them
+;; underline matching parentheses when the cursor is on them
 (show-paren-mode 1)
+(setq-default show-paren-style 'parentheses)
+(set-face-attribute 'show-paren-match-face nil
+                    :weight 'bold :underline t)
 
 ;; in programming modes, show trailing whitespace and leading tabs, and
 ;; highlight characters past column 80
