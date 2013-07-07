@@ -115,6 +115,9 @@
 ;; font family
 (set-default-font "Source Code Pro-12")
 
+;; the cursor should be a bar instead of a block
+(setq-default cursor-type 'bar)
+
 ;; highlight matching parentheses when the cursor is on them
 (show-paren-mode 1)
 
