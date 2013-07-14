@@ -69,7 +69,11 @@
     iy-go-to-char
 
     ;; notational velocity-like note taking
-    deft))
+    deft
+
+    ;; vimium-like text jumping
+    ace-jump-mode
+    ))
 
 (dolist (p user-packages)
   (when (not (package-installed-p p))
@@ -256,3 +260,6 @@
 ;; iy-go-to-char
 (global-set-key (kbd "C-c f") 'iy-go-to-char)
 (global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
+
+;; ace-jump-mode
+(global-set-key (kbd "C-c SPC") 'ace-jump-mode)
