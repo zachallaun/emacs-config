@@ -65,6 +65,9 @@
     ;; the solarized color theme for use with load-theme
     color-theme-solarized
 
+    ;; like 'f' in vim
+    iy-go-to-char
+
     ;; notational velocity-like note taking
     deft))
 
@@ -245,3 +248,7 @@
 
 ;; javascript config
 (setq js-indent-level 2)
+
+;; iy-go-to-char
+(global-set-key (kbd "C-c f") 'iy-go-to-char)
+(global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
