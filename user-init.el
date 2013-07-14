@@ -138,6 +138,10 @@
 ;; this fixes terminal rendering issues
 (setq system-uses-terminfo nil)
 
+;; when you start typing after having marked a region, delete that region
+;; and replace with what you're typing
+(pending-delete-mode 1)
+
 ;;; Package config ;;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
