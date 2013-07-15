@@ -147,7 +147,6 @@
 (pending-delete-mode 1)
 
 ;; display line numbers when goto-line is invoked
-
 (defun goto-line-with-feedback ()
   "Show line numbers temporarily, while prompting for the line number input"
   (interactive)
@@ -158,6 +157,15 @@
     (linum-mode -1)))
 
 (global-set-key [remap goto-line] 'goto-line-with-feedback)
+
+;; replace last sexp with evaluated result
+(defun replace-last-sexp ()
+  (interactive)
+  (let ((value (eval (preceding-sexp))))
+    (kill-sexp -1)
+    (insert (format "%s" value))))
+
+(global-set-key (kbd "C-x C-r") 'replace-last-sexp)
 
 ;;; Package config ;;;
 ;;;;;;;;;;;;;;;;;;;;;;
