@@ -167,6 +167,12 @@
 
 (global-set-key (kbd "C-x C-r") 'replace-last-sexp)
 
+;; uniquify adds more information to the status bar when buffers share names
+;; e.g. instead of project.clj<2>, you get project.clj | my-project
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward)
+(setq uniquify-separator " | ")
+
 ;;; Package config ;;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
