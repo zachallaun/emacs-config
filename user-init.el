@@ -3,8 +3,9 @@
 
 (add-to-list 'load-path "~/.emacs.d/")
 
-;; Manually installed packages in lib/
+;; Manually installed packages in lib/ and extra customization in user/
 (add-to-list 'load-path "~/.emacs.d/lib/")
+(add-to-list 'load-path "~/.emacs.d/user/")
 
 ;;; Packages ;;;
 ;;;;;;;;;;;;;;;;
@@ -293,3 +294,6 @@
 
 ;; ace-jump-mode
 (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
+
+;; mode-line customization
+(load "mode-line")
