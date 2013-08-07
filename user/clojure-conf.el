@@ -5,4 +5,9 @@
   ;; core.logic
   (run* 'defun)
   (run 'defun)
-  (fresh 'defun))
+  (fresh 'defun)
+  (defne 'defun)
+  (project 'defun)
+
+  ;; core.async
+  (go 'defun))
