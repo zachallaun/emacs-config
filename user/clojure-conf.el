@@ -9,5 +9,8 @@
   (defne 'defun)
   (project 'defun)
 
+  ;; core.match
+  (match 'defun)
+
   ;; core.async
   (go 'defun))
