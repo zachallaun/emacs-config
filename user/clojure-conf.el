@@ -1,3 +1,5 @@
+(require 'clojure-mode)
+
 (define-clojure-indent
   ;; midje
   (fact 'defun)
