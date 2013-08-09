@@ -132,13 +132,6 @@
 (set-face-attribute 'show-paren-match-face nil
                     :weight 'bold :underline t)
 
-;; in programming modes, show trailing whitespace and leading tabs, and
-;; highlight characters past column 80
-(custom-set-variables
-  '(whitespace-line-column 80)
-  '(whitespace-style '(face trailing tabs lines-tail)))
-(add-hook 'prog-mode-hook 'whitespace-mode)
-
 ;; use Emacs terminfo instead of system terminfo
 ;; this fixes terminal rendering issues
 (setq system-uses-terminfo nil)
