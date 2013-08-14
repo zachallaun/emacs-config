@@ -75,6 +75,9 @@
 
     ;; vimium-like text jumping
     ace-jump-mode
+
+    ;; text snippets
+    yasnippet
     ))
 
 (dolist (p user-packages)
@@ -179,6 +182,9 @@
 (setq ido-everywhere t)
 (ido-mode 1)
 
+;; yasnippet everywhere
+(yas-global-mode 1)
+
 ;; slime
 (add-to-list 'load-path "~/.emacs.d/lib/slime/")
 (setq inferior-lisp-program "sbcl")
@@ -260,6 +266,18 @@
 (add-hook 'js2-mode-hook 'slime-js-minor-mode)
 (add-hook 'js2-mode-hook 'electric-pair-mode)
 (global-set-key (kbd "C-c C-r") 'slime-js-reload)
+
+;; js2-mode steals TAB; steal it back for yasnippet
+(eval-after-load 'js2-mode
+  '(progn
+     (define-key js2-mode-map (kbd "TAB")
+       (lambda()
+         (interactive)
+         (let ((yas/fallback-behavior 'return-nil))
+           (unless (yas/expand)
+             (indent-for-tab-command)
+             (if (looking-back "^\s*")
+                 (back-to-indentation))))))))
 
 ;; deft: share files with nvALT
 (require 'deft)
