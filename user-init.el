@@ -30,6 +30,7 @@
     sml-mode
     jade-mode
     yaml-mode
+    js2-mode
 
     ;; slime-like support for scheme
     ;; requires a recent version of racket or guile
@@ -178,6 +179,12 @@
 (setq ido-everywhere t)
 (ido-mode 1)
 
+;; slime
+(add-to-list 'load-path "~/.emacs.d/lib/slime/")
+(setq inferior-lisp-program "sbcl")
+(require 'slime)
+(slime-setup '(slime-repl slime-js))
+
 ;; smex - M-x Ido-like enhancement
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
@@ -203,6 +210,7 @@
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 (add-hook 'lisp-mode-hook       'paredit-mode)
 (add-hook 'scheme-mode-hook     'paredit-mode)
+(add-hook 'js2-mode-hook        'paredit-mode)
 
 ;; paredit: don't insert a space before delimiters
 (add-hook 'paredit-mode-hook
@@ -243,11 +251,13 @@
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
 
-;; slime
-(add-to-list 'load-path "~/.emacs.d/lib/slime/")
-(setq inferior-lisp-program "sbcl")
-(require 'slime)
-(slime-setup '(slime-fancy))
+;; javascript: js2-mode config
+(add-to-list 'auto-mode-alist (cons (rx ".js" eos) 'js2-mode))
+(setq-default js2-basic-offset 2)
+(setq js2-include-browser-externs t)
+(setq js2-include-node-externs t)
+(setq js2-missing-semi-one-line-override t)
+(add-hook 'js2-mode-hook 'slime-js-minor-mode)
 
 ;; deft: share files with nvALT
 (require 'deft)
@@ -281,9 +291,6 @@
 ;; geiser config
 (add-hook 'geiser-mode-hook      'paredit-mode)
 (add-hook 'geiser-repl-mode-hook 'paredit-mode)
-
-;; javascript config
-(setq js-indent-level 2)
 
 ;; iy-go-to-char
 (global-set-key (kbd "C-c f") 'iy-go-to-char)
