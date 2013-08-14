@@ -210,7 +210,6 @@
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
 (add-hook 'lisp-mode-hook       'paredit-mode)
 (add-hook 'scheme-mode-hook     'paredit-mode)
-(add-hook 'js2-mode-hook        'paredit-mode)
 
 ;; paredit: don't insert a space before delimiters
 (add-hook 'paredit-mode-hook
@@ -258,6 +257,7 @@
 (setq js2-include-node-externs t)
 (setq js2-missing-semi-one-line-override t)
 (add-hook 'js2-mode-hook 'slime-js-minor-mode)
+(add-hook 'js2-mode-hook 'electric-pair-mode)
 
 ;; deft: share files with nvALT
 (require 'deft)
