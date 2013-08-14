@@ -258,6 +258,7 @@
 (setq js2-missing-semi-one-line-override t)
 (add-hook 'js2-mode-hook 'slime-js-minor-mode)
 (add-hook 'js2-mode-hook 'electric-pair-mode)
+(global-set-key (kbd "C-c C-r") 'slime-js-reload)
 
 ;; deft: share files with nvALT
 (require 'deft)
