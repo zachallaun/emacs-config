@@ -243,10 +243,11 @@
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
 
-;; Common Lisp: use quicklisp's slime
-;; XXX: requires that "quicklisp-slime-helper" be installed via quicklisp
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; slime
+(add-to-list 'load-path "~/.emacs.d/lib/slime/")
 (setq inferior-lisp-program "sbcl")
+(require 'slime)
+(slime-setup '(slime-fancy))
 
 ;; deft: share files with nvALT
 (require 'deft)
