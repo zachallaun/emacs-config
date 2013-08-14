@@ -255,6 +255,7 @@
 (setq-default js2-basic-offset 2)
 (setq js2-include-browser-externs t)
 (setq js2-include-node-externs t)
+(setq js2-strict-missing-semi-warning nil)
 (setq js2-missing-semi-one-line-override t)
 (add-hook 'js2-mode-hook 'slime-js-minor-mode)
 (add-hook 'js2-mode-hook 'electric-pair-mode)
