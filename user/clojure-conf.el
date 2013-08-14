@@ -25,3 +25,15 @@
   (when-recv 'defun)
   (if-recv 'defun)
   )
+
+(defun nrepl-send-dwim ()
+  "Send the appropriate forms to the REPL to be evaluated."
+  (interactive)
+  (let ((expr (nrepl-last-expression)))
+    (pop-to-buffer (nrepl-find-or-create-repl-buffer))
+    (goto-char (point-max))
+    (insert expr)
+    (nrepl-return)
+    (other-window 1)))
+
+(define-key nrepl-interaction-mode-map (kbd "C-c C-c") 'nrepl-send-dwim)
