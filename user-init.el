@@ -178,6 +178,9 @@
 (setq ido-everywhere t)
 (ido-mode 1)
 
+;; don't confirm creation when switching to a non-existant buffer
+(setq ido-create-new-buffer 'always)
+
 ;; yasnippet everywhere
 (yas-global-mode 1)
 
