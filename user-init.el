@@ -96,8 +96,7 @@
 (menu-bar-mode -1)
 
 ;; overried "yes" or "no" prompts to always be "y" or "n" prompts
-(defadvice yes-or-no-p (around _ activate)
-  (setq ad-return-value (y-or-n-p (ad-get-arg 0))))
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; do not confirm before creating a new file
 (setq confirm-nonexistent-file-or-buffer nil)
