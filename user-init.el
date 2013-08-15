@@ -115,9 +115,6 @@
 ;; automatically revert files when they change
 (global-auto-revert-mode t)
 
-;; highlight the current line
-(global-hl-line-mode 1)
-
 ;; insert spaces instead of tabs
 (setq-default indent-tabs-mode nil)
 
