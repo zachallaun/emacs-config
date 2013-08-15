@@ -36,4 +36,5 @@
     (nrepl-return)
     (other-window 1)))
 
-(define-key nrepl-interaction-mode-map (kbd "C-c C-c") 'nrepl-send-dwim)
+(eval-after-load "nrepl"
+  '(define-key nrepl-interaction-mode-map (kbd "C-c C-c") 'nrepl-send-dwim))
