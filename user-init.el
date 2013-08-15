@@ -104,6 +104,9 @@
 ;; display column number
 (setq column-number-mode t)
 
+;; highlight the current line
+(global-hl-line-mode 1)
+
 ;; open to an empty *scratch* buffer
 (setq initial-scratch-message "")
 (setq initial-buffer-choice t)
