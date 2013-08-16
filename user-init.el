@@ -204,7 +204,7 @@
 ;; color-theme-solarized
 ;; XXX: currently broken and shitty in terminal Emacs
 (setq solarized-italic nil)
-(load-theme 'solarized-light t)
+(load-theme 'solarized-dark t)
 
 ;; nrepl
 (add-hook 'nrepl-interaction-mode-hook
