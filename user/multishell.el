@@ -60,7 +60,6 @@ it as the `multishell-current-buffer`."
   (interactive)
   (let ((new-buffer (switch-to-new-named-multishell
                      (generate-new-buffer-name multishell-name))))
-    (purge-killed-multishell-buffers)
     (add-to-multishell-buffer-ring new-buffer)
     (setq multishell-current-buffer new-buffer)))
 
@@ -75,7 +74,6 @@ it as the `multishell-current-buffer`."
 (defun multishell-current ()
   "Switches to `multishell-current-buffer` if it's set."
   (interactive)
-  (purge-killed-multishell-buffers)
   (if (and multishell-current-buffer (buffer-live-p multishell-current-buffer))
     (switch-to-buffer-or-window (buffer-name multishell-current-buffer))
     (message "No live multishell buffer")))
@@ -93,7 +91,6 @@ If no element satisfies the condition, returns `nil`."
   "Switches to the buffer in `multishell-buffer-ring` found by applying
 `change` to the current index. `change` receives the current index and
 the length of the ring."
-  (purge-killed-multishell-buffers)
   (let ((current-index (index-where (lambda (b) (equal b multishell-current-buffer))
                                     multishell-buffer-ring)))
     (when (numberp current-index)
@@ -106,7 +103,6 @@ the length of the ring."
   "Switches to the buffer after `multishell-current-buffer` in the
 `multishell-buffer-ring`, setting a new current buffer."
   (interactive)
-  (purge-killed-multishell-buffers)
   (multishell-switch-index
     (lambda (current-index len)
       (if (eq (1+ current-index) len) 0 (1+ current-index)))))
@@ -115,7 +111,6 @@ the length of the ring."
   "Switches to the buffer before `multishell-current-buffer` in the
 `multishell-buffer-ring`, setting a new current buffer."
   (interactive)
-  (purge-killed-multishell-buffers)
   (multishell-switch-index
     (lambda (current-index len)
       (if (eq (1- current-index) -1) (1- len) (1- current-index)))))
@@ -127,6 +122,10 @@ doesn't already exist."
   (if (and multishell-current-buffer (buffer-live-p multishell-current-buffer))
     (multishell-current)
     (multishell)))
+
+;; advice kill-buffer to purge killed buffers from the buffer ring
+(defadvice kill-buffer (after clean-ring activate)
+  (purge-killed-multishell-buffers))
 
 (define-minor-mode multishell-mode
   "Toggle multishell mode"
