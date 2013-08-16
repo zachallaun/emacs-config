@@ -1,4 +1,10 @@
 
+;; highlighting the prompt prevents all other prompt styling
+(setq eshell-highlight-prompt nil)
+
+;; ignore case during completion
+(setq eshell-cmpl-ignore-case t)
+
 (defun switch-to-eshell-window-or-create (new-shell-arg)
   (interactive "P")
   (if new-shell-arg
@@ -11,12 +17,6 @@
         (eshell)))))
 
 (global-set-key (kbd "C-x m") 'switch-to-eshell-window-or-create)
-
-;; highlighting the prompt prevents all other prompt styling
-(setq eshell-highlight-prompt nil)
-
-;; ignore case during completion
-(setq eshell-cmpl-ignore-case t)
 
 (defun git-dir-branch-string (dir)
   "Returns the git branch of the repo containing dir, or nil if
