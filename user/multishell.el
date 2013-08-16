@@ -48,7 +48,11 @@ in the ring."
                         (remove-and-set-current d t)))
                      (t (remove-and-set-current d set?)))))))
     (setq multishell-buffer-ring
-          (remove-and-set-current multishell-buffer-ring nil))))
+          (remove-and-set-current multishell-buffer-ring nil))
+    (if (null multishell-current-buffer)
+      (setq multishell-current-buffer (car multishell-buffer-ring)))
+    (if multishell-mode
+      (switch-to-buffer multishell-current-buffer))))
 
 (defun add-to-multishell-buffer-ring (buffer)
   (setq multishell-buffer-ring
