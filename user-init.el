@@ -322,7 +322,7 @@
 (global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
 
 ;; ace-jump-mode
-(global-set-key (kbd "C-c SPC") 'ace-jump-mode)
+(global-set-key (kbd "C-c j") 'ace-jump-mode)
 
 ;; mode-line
 (load "mode-line")
