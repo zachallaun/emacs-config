@@ -113,8 +113,8 @@
 ;; no splash screen
 (setq inhibit-splash-screen t)
 
-;; maximize the window on open
-(add-hook 'after-init-hook 'toggle-frame-maximized)
+;; fullscreen on open
+(add-hook 'after-init-hook 'toggle-frame-fullscreen)
 
 ;; automatically revert files when they change
 (global-auto-revert-mode t)
