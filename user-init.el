@@ -175,6 +175,9 @@
 (setq uniquify-buffer-name-style 'post-forward)
 (setq uniquify-separator "@")
 
+;; kill buffers with Cmd-w
+(global-set-key (kbd "s-w") '(lambda () (interactive) (kill-buffer (current-buffer))))
+
 ;;; Package config ;;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
