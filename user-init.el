@@ -210,7 +210,7 @@
 (add-hook 'nrepl-interaction-mode-hook
 	  'nrepl-turn-on-eldoc-mode)
 
-;; clojure config
+;; clojure
 (load "clojure-conf")
 
 ;; paredit hooks
@@ -260,7 +260,7 @@
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
 
-;; javascript: js2-mode config
+;; javascript and js2-mode
 (add-to-list 'auto-mode-alist (cons (rx ".js" eos) 'js2-mode))
 (setq-default js2-basic-offset 2)
 (setq js2-include-browser-externs t)
@@ -312,7 +312,7 @@
 (global-set-key (kbd "M-'") 'do-deft)
 (global-set-key (kbd "C-'") 'deft-open-stack)
 
-;; geiser config
+;; geiser
 (add-hook 'geiser-mode-hook      'paredit-mode)
 (add-hook 'geiser-repl-mode-hook 'paredit-mode)
 
@@ -323,10 +323,10 @@
 ;; ace-jump-mode
 (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
 
-;; mode-line config
+;; mode-line
 (load "mode-line")
 
-;; eshell config
+;; eshell
 (load "eshell-conf")
 (add-hook 'after-init-hook 'eshell)
 
