@@ -65,63 +65,50 @@
 (make-face 'mode-line-process-face)
 (make-face 'mode-line-80col-face)
 
-;; taken from solarized-definitions.el `solarized-color-definitions`
-(require 'color-theme)
-(require 'color-theme-solarized)
+(load "color")
 
 (defun set-custom-mode-line-face-attrs ()
-  (flet ((color (name)
-                (let* ((index (if window-system
-                                  (if solarized-degrade
-                                      3
-                                    (if solarized-broken-srgb 2 1))
-                                (case (display-color-cells)
-                                  (16 4)
-                                  (8  5)
-                                  (otherwise 3)))))
-                  (nth index (assoc name solarized-colors)))))
+  (set-face-attribute 'mode-line nil
+                      :foreground (solarized-color 'base2) :background (solarized-color 'base02)
+                      :inverse-video nil
+                      :box `(:line-width 4 :color ,(solarized-color 'base02) :style nil))
+  (set-face-attribute 'mode-line-inactive nil
+                      :foreground (solarized-color 'base2) :background (solarized-color 'base01)
+                      :inverse-video nil
+                      :box `(:line-width 4 :color ,(solarized-color 'base01) :style nil))
 
-    (set-face-attribute 'mode-line nil
-                        :foreground (color 'base2) :background (color 'base02)
-                        :inverse-video nil
-                        :box `(:line-width 4 :color ,(color 'base02) :style nil))
-    (set-face-attribute 'mode-line-inactive nil
-                        :foreground (color 'base2) :background (color 'base01)
-                        :inverse-video nil
-                        :box `(:line-width 4 :color ,(color 'base01) :style nil))
-
-    (set-face-attribute 'mode-line-read-only-face nil
-                        :inherit 'mode-line-face
-                        :foreground (color 'blue)
-                        :box `(:line-width 2 :color (color 'blue)))
-    (set-face-attribute 'mode-line-modified-face nil
-                        :inherit 'mode-line-face
-                        :foreground (color 'magenta)
-                        :background (color 'base2)
-                        :box `(:line-width 2 :color ,(color 'magenta)))
-    (set-face-attribute 'mode-line-folder-face nil
-                        :inherit 'mode-line-face
-                        :foreground (color 'base2))
-    (set-face-attribute 'mode-line-filename-face nil
-                        :inherit 'mode-line-face
-                        :foreground (color 'blue)
-                        :weight 'bold)
-    (set-face-attribute 'mode-line-position-face nil
-                        :inherit 'mode-line-face
-                        :family "Menlo" :height 100)
-    (set-face-attribute 'mode-line-mode-face nil
-                        :inherit 'mode-line-face
-                        :foreground (color 'base2))
-    (set-face-attribute 'mode-line-minor-mode-face nil
-                        :inherit 'mode-line-mode-face
-                        :foreground (color 'base0)
-                        :height 110)
-    (set-face-attribute 'mode-line-process-face nil
-                        :inherit 'mode-line-face
-                        :foreground (color 'blue))
-    (set-face-attribute 'mode-line-80col-face nil
-                        :inherit 'mode-line-position-face
-                        :foreground (color 'base2) :background (color 'magenta))))
+  (set-face-attribute 'mode-line-read-only-face nil
+                      :inherit 'mode-line-face
+                      :foreground (solarized-color 'blue)
+                      :box `(:line-width 2 :color (solarized-color 'blue)))
+  (set-face-attribute 'mode-line-modified-face nil
+                      :inherit 'mode-line-face
+                      :foreground (solarized-color 'magenta)
+                      :background (solarized-color 'base2)
+                      :box `(:line-width 2 :color ,(solarized-color 'magenta)))
+  (set-face-attribute 'mode-line-folder-face nil
+                      :inherit 'mode-line-face
+                      :foreground (solarized-color 'base2))
+  (set-face-attribute 'mode-line-filename-face nil
+                      :inherit 'mode-line-face
+                      :foreground (solarized-color 'blue)
+                      :weight 'bold)
+  (set-face-attribute 'mode-line-position-face nil
+                      :inherit 'mode-line-face
+                      :family "Menlo" :height 100)
+  (set-face-attribute 'mode-line-mode-face nil
+                      :inherit 'mode-line-face
+                      :foreground (solarized-color 'base2))
+  (set-face-attribute 'mode-line-minor-mode-face nil
+                      :inherit 'mode-line-mode-face
+                      :foreground (solarized-color 'base0)
+                      :height 110)
+  (set-face-attribute 'mode-line-process-face nil
+                      :inherit 'mode-line-face
+                      :foreground (solarized-color 'blue))
+  (set-face-attribute 'mode-line-80col-face nil
+                      :inherit 'mode-line-position-face
+                      :foreground (solarized-color 'base2) :background (solarized-color 'magenta)))
 
 ;; set mode line on load
 (set-custom-mode-line-face-attrs)

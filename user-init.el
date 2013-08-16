@@ -107,9 +107,11 @@
 ;; highlight the current line
 (global-hl-line-mode 1)
 
-;; open to an empty *scratch* buffer
+;; scratch buffer should be empty
 (setq initial-scratch-message "")
-(setq initial-buffer-choice t)
+
+;; no splash screen
+(setq inhibit-splash-screen t)
 
 ;; maximize the window on open
 (add-hook 'after-init-hook 'toggle-frame-maximized)
@@ -321,8 +323,12 @@
 ;; ace-jump-mode
 (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
 
-;; mode-line customization
+;; mode-line config
 (load "mode-line")
+
+;; eshell config
+(load "eshell-conf")
+(add-hook 'after-init-hook 'eshell)
 
 ;; proof-general (requires a homebrew install)
 (let ((proof-general-el-file "/usr/local/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el"))
