@@ -176,7 +176,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 
 ;; magit
-(global-set-key (kbd "M-g s") 'magit-status)
+(global-set-key (kbd "C-c C-m") 'magit-status)
 
 ;; Ido everywhere
 (setq ido-enable-flex-matching t)
