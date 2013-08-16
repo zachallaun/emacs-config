@@ -78,6 +78,9 @@
 
     ;; text snippets
     yasnippet
+
+    ;; offline clojure cheatsheet
+    clojure-cheatsheet
     ))
 
 (dolist (p user-packages)
