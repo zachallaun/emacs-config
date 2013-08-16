@@ -9,7 +9,7 @@
 shell's buffer."
   :group 'multishell)
 
-(defcustom multishell-name eshell-buffer-name
+(defcustom multishell-name "*eshell*"
   "The base name for new buffers created by invoking `multishell-function`."
   :type 'string
   :group 'multishell)

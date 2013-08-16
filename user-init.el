@@ -332,7 +332,7 @@
 
 ;; eshell
 (load "eshell-conf")
-(add-hook 'after-init-hook 'eshell)
+(add-hook 'after-init-hook 'multishell)
 
 ;; proof-general (requires a homebrew install)
 (let ((proof-general-el-file "/usr/local/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el"))
