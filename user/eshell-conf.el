@@ -1,4 +1,17 @@
 
+(defun switch-to-eshell-window-or-create (new-shell-arg)
+  (interactive "P")
+  (if new-shell-arg
+    (eshell new-shell-arg)
+    (let ((eshell-window (get-window-with-predicate
+                          (lambda (window) (equal (buffer-name (window-buffer window))
+                                                  eshell-buffer-name)))))
+      (if eshell-window
+        (select-window eshell-window)
+        (eshell)))))
+
+(global-set-key (kbd "C-x m") 'switch-to-eshell-window-or-create)
+
 ;; highlighting the prompt prevents all other prompt styling
 (setq eshell-highlight-prompt nil)
 
