@@ -49,10 +49,8 @@ in the ring."
                      (t (remove-and-set-current d set?)))))))
     (setq multishell-buffer-ring
           (remove-and-set-current multishell-buffer-ring nil))
-    (if (null multishell-current-buffer)
-      (setq multishell-current-buffer (car multishell-buffer-ring)))
-    (if multishell-mode
-      (switch-to-buffer multishell-current-buffer))))
+    (when (null multishell-current-buffer)
+      (setq multishell-current-buffer (car multishell-buffer-ring)))))
 
 (defun add-to-multishell-buffer-ring (buffer)
   (setq multishell-buffer-ring
@@ -131,15 +129,7 @@ doesn't already exist."
 (defadvice kill-buffer (after clean-ring activate)
   (purge-killed-multishell-buffers))
 
-(define-minor-mode multishell-mode
-  "Toggle multishell mode"
-  nil
-  "multishell"
-  `((,(kbd "s-{") . multishell-prev)
-    (,(kbd "s-}") . multishell-next))
-  :group multishell)
-
 (global-set-key (kbd "C-x m") 'multishell-switch-to-current-or-create)
 (global-set-key (kbd "C-x M") 'multishell)
-
-(add-hook 'eshell-mode-hook 'multishell-mode)
+(global-set-key (kbd "s-}") 'multishell-prev)
+(global-set-key (kbd "s-{") 'multishell-prev)
