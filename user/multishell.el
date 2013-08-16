@@ -128,7 +128,15 @@ doesn't already exist."
     (multishell-current)
     (multishell)))
 
+(define-minor-mode multishell-mode
+  "Toggle multishell mode"
+  nil
+  "multishell"
+  `((,(kbd "s-{") . multishell-prev)
+    (,(kbd "s-}") . multishell-next))
+  :group multishell)
+
 (global-set-key (kbd "C-x m") 'multishell-switch-to-current-or-create)
 (global-set-key (kbd "C-x M") 'multishell)
-(global-set-key (kbd "s-{") 'multishell-prev)
-(global-set-key (kbd "s-}") 'multishell-next)
+
+(add-hook 'eshell-mode-hook 'multishell-mode)
