@@ -40,3 +40,8 @@
   (if (null dirname)
     (dired "." switches)
     (dired dirname switches)))
+
+(defun eshell/ff (&optional filename wildcards)
+  (if (null filename)
+    (find-file ".")
+    (find-file filename wildcards)))
