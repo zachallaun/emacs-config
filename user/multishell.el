@@ -99,9 +99,11 @@ the length of the ring."
   "Switches to `multishell-last-buffer`, creating a new multishell if it
 doesn't already exist."
   (interactive)
-  (if (and multishell-last-buffer (buffer-live-p multishell-last-buffer))
-    (multishell-current)
-    (multishell)))
+  (cond ((buffer-live-p multishell-last-buffer)
+         (multishell-current))
+        ((buffer-live-p (car multishell-buffer-ring))
+         (switch-to-buffer-or-window (car multishell-buffer-ring)))
+        (t (multishell))))
 
 ;; advice kill-buffer to purge killed buffers from the buffer ring
 (defadvice kill-buffer (after clean-ring activate)
