@@ -109,5 +109,5 @@ doesn't already exist."
 
 (global-set-key (kbd "C-x m") 'multishell-switch-to-current-or-create)
 (global-set-key (kbd "C-x M") 'multishell)
-(global-set-key (kbd "s-}") 'multishell-prev)
+(global-set-key (kbd "s-}") 'multishell-next)
 (global-set-key (kbd "s-{") 'multishell-prev)
