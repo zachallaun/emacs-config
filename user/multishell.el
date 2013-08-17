@@ -15,11 +15,14 @@ shell's buffer."
 
 (defvar multishell-buffer-ring ())
 
-(defvar multishell-current-buffer nil)
-
 (defun new-multishell (&optional &rest args)
   "Apply multishell-function to args, returning the new shell buffer."
   (eval (cons multishell-function args)))
+
+(defun purge-killed-multishell-buffers ()
+  "Remove buffers that have been killed from `multishell-buffer-ring`."
+  (setq multishell-buffer-ring
+        (remove-if-not 'buffer-live-p multishell-buffer-ring)))
 
 (defun switch-to-new-named-multishell (name &optional &rest args)
   "Creates and switches to a new named multishell, returning the buffer."
@@ -28,42 +31,18 @@ shell's buffer."
     (rename-buffer name)
     new-buffer))
 
-(defun purge-killed-multishell-buffers ()
-  "Remove buffers that have been killed from `multishell-buffer-ring`.
-If `multishell-current-buffer` was killed, set it to be the next buffer
-in the ring."
-  (flet ((remove-and-set-current (lst set?)
-           (when (not (null lst))
-             (let ((a (car lst))
-                   (d (cdr lst)))
-               (cond ((buffer-live-p a)
-                      (if set?
-                        (progn
-                          (setq multishell-current-buffer a)
-                          (cons a (remove-and-set-current d nil)))
-                        (cons a (remove-and-set-current d nil))))
-                     ((equal a multishell-current-buffer)
-                      (progn
-                        (setq multishell-current-buffer nil)
-                        (remove-and-set-current d t)))
-                     (t (remove-and-set-current d set?)))))))
-    (setq multishell-buffer-ring
-          (remove-and-set-current multishell-buffer-ring nil))
-    (when (null multishell-current-buffer)
-      (setq multishell-current-buffer (car multishell-buffer-ring)))))
-
 (defun add-to-multishell-buffer-ring (buffer)
   (setq multishell-buffer-ring
         (append multishell-buffer-ring (list buffer))))
 
 (defun multishell ()
-  "Creates a new multishell, adding it to `multishell-buffer-ring` and setting
-it as the `multishell-current-buffer`."
+  "Creates a new multishell, adding it to `multishell-buffer-ring`."
   (interactive)
   (let ((new-buffer (switch-to-new-named-multishell
                      (generate-new-buffer-name multishell-name))))
-    (add-to-multishell-buffer-ring new-buffer)
-    (setq multishell-current-buffer new-buffer)))
+    (add-to-multishell-buffer-ring new-buffer)))
+
+(defvar multishell-last-buffer nil)
 
 (defun switch-to-buffer-or-window (name)
   "Switches to the buffer with name `name`, if possible by switching windows."
@@ -71,14 +50,15 @@ it as the `multishell-current-buffer`."
                          (lambda (window) (equal (buffer-name (window-buffer window)) name)))))
     (if buffer-window
       (select-window buffer-window)
-      (switch-to-buffer name))))
+      (switch-to-buffer name))
+    (setq multishell-last-buffer (get-buffer name))))
 
 (defun multishell-current ()
-  "Switches to `multishell-current-buffer` if it's set."
+  "Switches to `multishell-last-buffer` if it's set."
   (interactive)
-  (if (and multishell-current-buffer (buffer-live-p multishell-current-buffer))
-    (switch-to-buffer-or-window (buffer-name multishell-current-buffer))
-    (message "No live multishell buffer")))
+  (if (and multishell-last-buffer (buffer-live-p multishell-last-buffer))
+    (switch-to-buffer-or-window (buffer-name multishell-last-buffer))
+    (message "No last multishell buffer")))
 
 (defun index-where (pred lst)
   "Returns the index of the first element in `lst` that satisfies `pred`.
@@ -93,35 +73,33 @@ If no element satisfies the condition, returns `nil`."
   "Switches to the buffer in `multishell-buffer-ring` found by applying
 `change` to the current index. `change` receives the current index and
 the length of the ring."
-  (let ((current-index (index-where (lambda (b) (equal b multishell-current-buffer))
+  (let ((current-index (index-where (lambda (b) (equal b (current-buffer)))
                                     multishell-buffer-ring)))
     (when (numberp current-index)
       (let* ((len (length multishell-buffer-ring))
              (next-index (funcall change current-index len)))
-        (setq multishell-current-buffer (nth next-index multishell-buffer-ring))
+        (setq multishell-last-buffer (nth next-index multishell-buffer-ring))
         (multishell-current)))))
 
 (defun multishell-next ()
-  "Switches to the buffer after `multishell-current-buffer` in the
-`multishell-buffer-ring`, setting a new current buffer."
+  "Switches to the next buffer in the multishell buffer ring."
   (interactive)
   (multishell-switch-index
     (lambda (current-index len)
       (if (eq (1+ current-index) len) 0 (1+ current-index)))))
 
 (defun multishell-prev ()
-  "Switches to the buffer before `multishell-current-buffer` in the
-`multishell-buffer-ring`, setting a new current buffer."
+  "Switches to the previous buffer in the multishell buffer ring."
   (interactive)
   (multishell-switch-index
     (lambda (current-index len)
       (if (eq (1- current-index) -1) (1- len) (1- current-index)))))
 
 (defun multishell-switch-to-current-or-create ()
-  "Switches to `multishell-current-buffer`, creating a new multishell if it
+  "Switches to `multishell-last-buffer`, creating a new multishell if it
 doesn't already exist."
   (interactive)
-  (if (and multishell-current-buffer (buffer-live-p multishell-current-buffer))
+  (if (and multishell-last-buffer (buffer-live-p multishell-last-buffer))
     (multishell-current)
     (multishell)))
 
