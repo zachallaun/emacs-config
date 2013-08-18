@@ -26,11 +26,12 @@
          (propertize (concat " [" git-branch "]")
                      'face `(:foreground ,(color-theme-color 'yellow)))
          ""))
-     ;;
+     ;; prompt
      (propertize " >" 'face `(:foreground ,(color-theme-color 'orange)
                               :weight bold))
      (propertize " " 'face 'default))))
 
+;; this unfortunately has to match the output of `eshell-prompt-function`
 (setq eshell-prompt-regexp "^[^>]* > ")
 
 ;; highlighting the prompt prevents all other prompt styling
