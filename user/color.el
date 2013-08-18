@@ -12,3 +12,7 @@
                    (8  5)
                    (otherwise 3)))))
     (nth index (assoc name solarized-colors))))
+
+;; make the fringe (left and right borders) the same color as the background
+(set-face-attribute 'fringe nil
+                    :background (color-theme-color 'base03))

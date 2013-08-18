@@ -208,10 +208,11 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;; old M-x
 
-;; color-theme-solarized
+;; color theme
 ;; XXX: currently broken and shitty in terminal Emacs
 (setq solarized-italic nil)
 (load-theme 'solarized-dark t)
+(load "color")
 
 ;; nrepl
 (add-hook 'nrepl-interaction-mode-hook
