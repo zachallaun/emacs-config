@@ -69,46 +69,46 @@
 
 (defun set-custom-mode-line-face-attrs ()
   (set-face-attribute 'mode-line nil
-                      :foreground (solarized-color 'base2) :background (solarized-color 'base02)
+                      :foreground (color-theme-color 'base2) :background (color-theme-color 'base02)
                       :inverse-video nil
-                      :box `(:line-width 4 :color ,(solarized-color 'base02) :style nil))
+                      :box `(:line-width 4 :color ,(color-theme-color 'base02) :style nil))
   (set-face-attribute 'mode-line-inactive nil
-                      :foreground (solarized-color 'base2) :background (solarized-color 'base01)
+                      :foreground (color-theme-color 'base2) :background (color-theme-color 'base01)
                       :inverse-video nil
-                      :box `(:line-width 4 :color ,(solarized-color 'base01) :style nil))
+                      :box `(:line-width 4 :color ,(color-theme-color 'base01) :style nil))
 
   (set-face-attribute 'mode-line-read-only-face nil
                       :inherit 'mode-line-face
-                      :foreground (solarized-color 'blue)
-                      :box `(:line-width 2 :color (solarized-color 'blue)))
+                      :foreground (color-theme-color 'blue)
+                      :box `(:line-width 2 :color (color-theme-color 'blue)))
   (set-face-attribute 'mode-line-modified-face nil
                       :inherit 'mode-line-face
-                      :foreground (solarized-color 'magenta)
-                      :background (solarized-color 'base2)
-                      :box `(:line-width 2 :color ,(solarized-color 'magenta)))
+                      :foreground (color-theme-color 'magenta)
+                      :background (color-theme-color 'base2)
+                      :box `(:line-width 2 :color ,(color-theme-color 'magenta)))
   (set-face-attribute 'mode-line-folder-face nil
                       :inherit 'mode-line-face
-                      :foreground (solarized-color 'base2))
+                      :foreground (color-theme-color 'base2))
   (set-face-attribute 'mode-line-filename-face nil
                       :inherit 'mode-line-face
-                      :foreground (solarized-color 'blue)
+                      :foreground (color-theme-color 'blue)
                       :weight 'bold)
   (set-face-attribute 'mode-line-position-face nil
                       :inherit 'mode-line-face
                       :family "Menlo" :height 100)
   (set-face-attribute 'mode-line-mode-face nil
                       :inherit 'mode-line-face
-                      :foreground (solarized-color 'base2))
+                      :foreground (color-theme-color 'base2))
   (set-face-attribute 'mode-line-minor-mode-face nil
                       :inherit 'mode-line-mode-face
-                      :foreground (solarized-color 'base0)
+                      :foreground (color-theme-color 'base0)
                       :height 110)
   (set-face-attribute 'mode-line-process-face nil
                       :inherit 'mode-line-face
-                      :foreground (solarized-color 'blue))
+                      :foreground (color-theme-color 'blue))
   (set-face-attribute 'mode-line-80col-face nil
                       :inherit 'mode-line-position-face
-                      :foreground (solarized-color 'base2) :background (solarized-color 'magenta)))
+                      :foreground (color-theme-color 'base2) :background (color-theme-color 'magenta)))
 
 ;; set mode line on load
 (set-custom-mode-line-face-attrs)

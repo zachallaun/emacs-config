@@ -19,15 +19,15 @@
     (concat
      ;; directory
      (propertize (abbreviate-file-name (eshell/pwd))
-                 'face `(:foreground ,(solarized-color 'blue)))
+                 'face `(:foreground ,(color-theme-color 'blue)))
      ;; git branch information
      (let ((git-branch (git-dir-branch-string ".")))
        (if git-branch
          (propertize (concat " [" git-branch "]")
-                     'face `(:foreground ,(solarized-color 'yellow)))
+                     'face `(:foreground ,(color-theme-color 'yellow)))
          ""))
      ;;
-     (propertize " >" 'face `(:foreground ,(solarized-color 'orange)
+     (propertize " >" 'face `(:foreground ,(color-theme-color 'orange)
                               :weight bold))
      (propertize " " 'face 'default))))
 

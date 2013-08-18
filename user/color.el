@@ -2,7 +2,7 @@
 (require 'color-theme-solarized)
 
 ;; taken from solarized-definitions.el `solarized-color-definitions`
-(defun solarized-color (name)
+(defun color-theme-color (name)
   (let ((index (if window-system
                    (if solarized-degrade
                        3
