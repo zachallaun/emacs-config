@@ -48,3 +48,6 @@
   (if (null filename)
     (find-file ".")
     (find-file filename wildcards)))
+
+(defun eshell/vis (program &optional &rest args)
+  (apply 'eshell-exec-visual (cons program args)))
