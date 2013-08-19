@@ -55,6 +55,10 @@
     ;; Emacs client for nREPL, an alternative to slime + swank-clojure
     nrepl
 
+    ;; lein.el eshell functions - start a lein process via nrepl to
+    ;; communicate with on subsequent calls
+    lein
+
     ;; Node.js REPL
     nodejs-repl
 
@@ -337,6 +341,9 @@
 ;; eshell
 (load "eshell-conf")
 (add-hook 'after-init-hook 'multishell)
+
+;; leiningen: eshell/lein
+(require 'lein)
 
 ;; proof-general (requires a homebrew install)
 (let ((proof-general-el-file "/usr/local/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el"))
