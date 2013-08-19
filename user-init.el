@@ -182,6 +182,9 @@
 ;; kill buffers with Cmd-w
 (global-set-key (kbd "s-w") '(lambda () (interactive) (kill-buffer (current-buffer))))
 
+;; Cmd+Ret to toggle fullscreen
+(global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen)
+
 ;;; Package config ;;;
 ;;;;;;;;;;;;;;;;;;;;;;
 
