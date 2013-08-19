@@ -104,6 +104,12 @@
 (dolist (p user-packages)
   (when (not (package-installed-p p))
     (package-install p)))
+(defmacro after (mode &rest body)
+  "After MODE loads, evaluate BODY."
+  (declare (indent defun))
+  `(eval-after-load ,mode
+     '(progn ,@body)))
+
 
 ;;; Emacs config ;;;
 ;;;;;;;;;;;;;;;;;;;;
@@ -201,16 +207,15 @@
 ;; magit
 (global-set-key (kbd "C-c C-m") 'magit-status)
 
-(eval-after-load 'git-commit-mode
-  '(progn
-     ;; C-c C-k during a commit to cancel
-     (define-key git-commit-mode-map (kbd "C-c C-k") '(lambda () (interactive)
-                                                        (kill-buffer)
-                                                        (other-window 1)))
+(after 'git-commit-mode
+  ;; C-c C-k during a commit to cancel
+  (define-key git-commit-mode-map (kbd "C-c C-k") '(lambda () (interactive)
+                                                     (kill-buffer)
+                                                     (other-window 1)))
 
-     ;; switch back to status window after committing
-     (defadvice git-commit-commit (after switch-to-magit-status activate)
-       (other-window 1))))
+  ;; switch back to status window after committing
+  (defadvice git-commit-commit (after switch-to-magit-status activate)
+    (other-window 1)))
 
 ;; Ido everywhere
 (setq ido-enable-flex-matching t)
@@ -288,8 +293,8 @@
 (require 'ac-nrepl)
 (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
 (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'nrepl-mode))
+(after 'autocomplete
+  (add-to-list 'ac-modes 'nrepl-mode))
 
 ;; auto-complete symbols for various other modes
 (add-hook 'julia-mode-hook 'auto-complete-mode)
@@ -315,16 +320,15 @@
 (global-set-key (kbd "C-c C-r") 'slime-js-reload)
 
 ;; js2-mode steals TAB; steal it back for yasnippet
-(eval-after-load 'js2-mode
-  '(progn
-     (define-key js2-mode-map (kbd "TAB")
-       (lambda()
-         (interactive)
-         (let ((yas/fallback-behavior 'return-nil))
-           (unless (yas/expand)
-             (indent-for-tab-command)
-             (if (looking-back "^\s*")
-                 (back-to-indentation))))))))
+(after 'js2-mode
+  (define-key js2-mode-map (kbd "TAB")
+    (lambda()
+      (interactive)
+      (let ((yas/fallback-behavior 'return-nil))
+        (unless (yas/expand)
+          (indent-for-tab-command)
+          (if (looking-back "^\s*")
+              (back-to-indentation)))))))
 
 ;; deft: share files with nvALT
 (require 'deft)
