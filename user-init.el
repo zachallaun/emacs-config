@@ -96,6 +96,9 @@
 
     ;; fuzzy matching for ido
     flx-ido
+
+    ;; narrowing and selection
+    helm
     ))
 
 ;;----------------------------------------------------------------------------
@@ -413,5 +416,30 @@
 (let ((proof-general-el-file "/usr/local/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el"))
   (when (file-exists-p proof-general-el-file)
     (load-file proof-general-el-file)))
+
+;;----------------------------------------------------------------------------
+;;-- init.navigation
+;;----------------------------------------------------------------------------
+
+(defun helm-mini-or-imenu (imenu?) (interactive "P")
+  (if imenu? (helm-imenu) (helm-mini)))
+
+(global-set-key (kbd "C-c h") 'helm-mini-or-imenu)
+
+(after 'helm
+  (load "color")
+
+  (set-face-attribute 'helm-selection nil
+                      :background (color-theme-color 'base02)
+                      :foreground (color-theme-color 'base2))
+
+  (set-face-attribute 'helm-source-header nil
+                      :height 1.5
+                      :foreground (color-theme-color 'magenta)
+                      :background nil)
+
+  (set-face-attribute 'helm-match nil
+                      :underline t
+                      :inherit nil))
 
 ;;; user-init.el ends here
