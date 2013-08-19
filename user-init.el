@@ -85,6 +85,9 @@
 
     ;; offline clojure cheatsheet
     clojure-cheatsheet
+
+    ;; fuzzy matching for ido
+    flx-ido
     ))
 
 (dolist (p user-packages)
@@ -213,6 +216,11 @@
 
 ;; don't confirm creation when switching to a non-existant buffer
 (setq ido-create-new-buffer 'always)
+
+;; flx - fuzzy matching
+(require 'flx-ido)
+(flx-ido-mode 1)
+(setq ido-use-faces nil) ; to see flx highlights
 
 ;; yasnippet everywhere
 (yas-global-mode 1)
