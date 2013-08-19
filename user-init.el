@@ -98,8 +98,7 @@
     flx-ido
 
     ;; narrowing and selection
-    helm
-    ))
+    helm))
 
 ;;----------------------------------------------------------------------------
 ;;-- packages.install
@@ -199,18 +198,6 @@
 ;; and replace with what you're typing
 (pending-delete-mode 1)
 
-;; display line numbers when goto-line is invoked
-(defun goto-line-with-feedback ()
-  "Show line numbers temporarily, while prompting for the line number input"
-  (interactive)
-  (unwind-protect
-      (progn
-        (linum-mode 1)
-        (goto-line (read-number "Goto line: ")))
-    (linum-mode -1)))
-
-(global-set-key [remap goto-line] 'goto-line-with-feedback)
-
 ;; replace last sexp with evaluated result
 (defun replace-last-sexp ()
   (interactive)
@@ -220,23 +207,34 @@
 
 (global-set-key (kbd "C-x C-r") 'replace-last-sexp)
 
-;; uniquify adds more information to the status bar when buffers share names
-;; e.g. instead of project.clj<2>, you get project.clj@my-project
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward)
-(setq uniquify-separator "@")
+;; Cmd+Ret to toggle fullscreen
+(global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen)
 
 ;; kill buffers with Cmd-w
 (global-set-key (kbd "s-w") '(lambda () (interactive) (kill-buffer (current-buffer))))
 
-;; Cmd+Ret to toggle fullscreen
-(global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen)
-
 ;;----------------------------------------------------------------------------
-;;-- init.packages
+;;-- init.editor
 ;;----------------------------------------------------------------------------
 
-;; magit
+;;-- init.editor.ac
+(require 'auto-complete-config)
+(ac-config-default)
+
+;; auto-complete for nrepl
+(after 'auto-complete-autoloads
+  (require 'ac-nrepl)
+  (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
+  (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
+  (add-to-list 'ac-modes 'nrepl-mode))
+
+;; auto-complete symbols for various other modes
+(add-hook 'julia-mode-hook 'auto-complete-mode)
+
+;;----------------------------------------------------------------------------
+;;-- init.git
+;;----------------------------------------------------------------------------
+
 (global-set-key (kbd "C-c C-m") 'magit-status)
 
 (after 'git-commit-mode
@@ -249,35 +247,91 @@
   (defadvice git-commit-commit (after switch-to-magit-status activate)
     (other-window 1)))
 
-;; Ido everywhere
+;;----------------------------------------------------------------------------
+;;-- init.nav
+;;----------------------------------------------------------------------------
+
+;;-- init.nav.helm
+(defun helm-mini-or-imenu (imenu?) (interactive "P")
+  (if imenu? (helm-imenu) (helm-mini)))
+
+(global-set-key (kbd "C-c h") 'helm-mini-or-imenu)
+
+(after 'helm
+  (load "color")
+
+  (set-face-attribute 'helm-selection nil
+                      :background (color-theme-color 'base02)
+                      :foreground (color-theme-color 'base2))
+
+  (set-face-attribute 'helm-source-header nil
+                      :height 1.5
+                      :foreground (color-theme-color 'magenta)
+                      :background nil)
+
+  (after 'helm-match-plugin
+    (set-face-attribute 'helm-match nil
+                        :underline t
+                        :inherit nil)))
+
+;;-- init.nav.ido
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (setq ido-case-fold t)
 (ido-mode 1)
 
-;; don't confirm creation when switching to a non-existant buffer
-(setq ido-create-new-buffer 'always)
-
-;; flx - fuzzy matching
-(require 'flx-ido)
-(flx-ido-mode 1)
-(setq ido-use-faces nil) ; to see flx highlights
-
-;; yasnippet everywhere
-(yas-global-mode 1)
-
-;; slime
-(add-to-list 'load-path "~/.emacs.d/lib/slime/")
-(setq inferior-lisp-program "sbcl")
-(require 'slime)
-(slime-setup '(slime-repl slime-js))
-
-;; smex - M-x Ido-like enhancement
+;;-- init.nav.smex
+;; M-x Ido-like enhancement
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "C-x C-m") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command) ;; old M-x
+
+;; don't confirm creation when switching to a non-existant buffer
+(setq ido-create-new-buffer 'always)
+
+;;-- init.nav.flx
+(require 'flx-ido)
+(flx-ido-mode 1)
+(setq ido-use-faces nil) ; to see flx highlights
+
+;;-- init.nav.uniquify
+;; uniquify adds more information to the status bar when buffers share names
+;; e.g. instead of project.clj<2>, you get project.clj@my-project
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward)
+(setq uniquify-separator "@")
+
+;;-- init.nav.goto
+;; display line numbers when goto-line is invoked
+(defun goto-line-with-feedback ()
+  "Show line numbers temporarily, while prompting for the line number input"
+  (interactive)
+  (unwind-protect
+      (progn
+        (linum-mode 1)
+        (goto-line (read-number "Goto line: ")))
+    (linum-mode -1)))
+
+(global-set-key [remap goto-line] 'goto-line-with-feedback)
+
+;;-- init.nav.iy-go-to-char
+(global-set-key (kbd "C-c f") 'iy-go-to-char)
+(global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
+
+;;-- init.nav.ace-jump
+(global-set-key (kbd "C-c j") 'ace-jump-mode)
+
+;;----------------------------------------------------------------------------
+;;-- init.yas
+;;----------------------------------------------------------------------------
+
+(yas-global-mode 1)
+
+;;----------------------------------------------------------------------------
+;;-- init.color
+;;----------------------------------------------------------------------------
 
 ;; color theme
 ;; XXX: currently broken and shitty in terminal Emacs
@@ -285,59 +339,116 @@
 (load-theme 'solarized-dark t)
 (load "color")
 
-;; nrepl
-(add-hook 'nrepl-interaction-mode-hook
-	  'nrepl-turn-on-eldoc-mode)
+;;----------------------------------------------------------------------------
+;;-- init.lisp
+;;----------------------------------------------------------------------------
 
-;; clojure
-(load "clojure-conf")
+(add-to-list 'load-path "~/.emacs.d/lib/slime/")
+(setq inferior-lisp-program "sbcl")
+(require 'slime)
+(slime-setup '(slime-repl slime-js))
 
-;; paredit hooks
-(require 'paredit)
-(add-hook 'clojure-mode-hook    'paredit-mode)
-(add-hook 'nrepl-mode-hook      'paredit-mode)
+;;----------------------------------------------------------------------------
+;;-- init.clojure
+;;----------------------------------------------------------------------------
+
+(after 'clojure-mode
+  (define-clojure-indent
+    ;; midje
+    (fact 'defun) (facts 'defun)
+
+    ;; core.logic
+    (run* 'defun)
+    (run 'defun)
+    (fresh 'defun)
+    (defne 'defun)
+    (project 'defun)
+    (matche 'defun)
+
+    ;; core.match
+    (match 'defun)
+
+    ;; core.async
+    (go 'defun)
+
+    ;; core.async helpers
+    (pipeline 'defun)
+    (while-open 'defun)
+    (when-recv 'defun)
+    (if-recv 'defun)))
+
+;;-- init.clojure.nrepl
+(defun nrepl-send-dwim ()
+  "Send the appropriate forms to the REPL to be evaluated."
+  (interactive)
+  (let ((expr (nrepl-last-expression)))
+    (pop-to-buffer (nrepl-find-or-create-repl-buffer))
+    (goto-char (point-max))
+    (insert expr)
+    (nrepl-return)
+    (other-window 1)))
+
+(after 'nrepl
+  (define-key nrepl-interaction-mode-map (kbd "C-c C-c") 'nrepl-send-dwim)
+
+  (add-hook 'nrepl-interaction-mode-hook
+            'nrepl-turn-on-eldoc-mode))
+
+;;----------------------------------------------------------------------------
+;;-- init.paredit
+;;----------------------------------------------------------------------------
+
+;; don't insert a space before delimiters
+(after 'paredit
+  (add-hook 'paredit-mode-hook
+            (lambda ()
+              (add-to-list (make-local-variable
+                            'paredit-space-for-delimiter-predicates)
+                           (lambda (_ _) nil)))))
+
 (add-hook 'emacs-lisp-mode-hook 'paredit-mode)
-(add-hook 'lisp-mode-hook       'paredit-mode)
-(add-hook 'scheme-mode-hook     'paredit-mode)
+(after 'clojure-mode     (add-hook 'clojure-mode-hook 'paredit-mode))
+(after 'nrepl            (add-hook 'nrepl-mode-hook 'paredit-mode))
+(after 'scheme-mode      (add-hook 'scheme-mode-hook 'paredit-mode))
+(after 'common-lisp-mode (add-hook 'lisp-mode-hook 'paredit-mode))
+(after 'geiser
+  (add-hook 'geiser-mode-hook 'paredit-mode)
+  (add-hook 'geiser-repl-mode-hook 'paredit-mode))
 
-;; paredit: don't insert a space before delimiters
-(add-hook 'paredit-mode-hook
-	  (lambda ()
-	    (add-to-list (make-local-variable
-			  'paredit-space-for-delimiter-predicates)
-			 (lambda (_ _) nil))))
+;;----------------------------------------------------------------------------
+;;-- init.rainbow-delimiters
+;;----------------------------------------------------------------------------
 
-;; rainbow-delimiters
-(add-hook 'prog-mode-hook  'rainbow-delimiters-mode)
-(add-hook 'nrepl-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'prog-mode-hook  'rainbow-delimiters-mode-enable)
+(add-hook 'nrepl-mode-hook 'rainbow-delimiters-mode-enable)
 
-;; Julia
+;;----------------------------------------------------------------------------
+;;-- init.julia
+;;----------------------------------------------------------------------------
+
 (load "julia-mode")
 (load "julia-repl")
 (setq julia-basic-repl-path
       "~/Dropbox/projects/julialang/julia/usr/bin/julia-release-basic")
 
-;; auto-complete
-(require 'auto-complete-config)
-(ac-config-default)
+;;----------------------------------------------------------------------------
+;;-- init.markdown
+;;----------------------------------------------------------------------------
 
-;; auto-complete for nrepl
-(require 'ac-nrepl)
-(add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
-(add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
-(after 'autocomplete
-  (add-to-list 'ac-modes 'nrepl-mode))
-
-;; auto-complete symbols for various other modes
-(add-hook 'julia-mode-hook 'auto-complete-mode)
-
-;; markdown-mode doesn't have default file extensions, so they need to be set
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;;----------------------------------------------------------------------------
+;;-- init.ruby
+;;----------------------------------------------------------------------------
 
 ;; recognize Gemfiles and rake files as Ruby
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
+
+;;----------------------------------------------------------------------------
+;;-- init.js
+;;----------------------------------------------------------------------------
 
 ;; javascript and js2-mode
 (add-to-list 'auto-mode-alist (cons (rx ".js" eos) 'js2-mode))
@@ -362,8 +473,13 @@
           (if (looking-back "^\s*")
               (back-to-indentation)))))))
 
-;; deft: share files with nvALT
+;;----------------------------------------------------------------------------
+;;-- init.deft
+;;----------------------------------------------------------------------------
+
 (require 'deft)
+
+;; deft: share files with nvALT
 (setq deft-directory "~/Dropbox/nvALT/")
 
 ;; deft: turn off autosave
@@ -391,55 +507,28 @@
 (global-set-key (kbd "M-'") 'do-deft)
 (global-set-key (kbd "C-'") 'deft-open-stack)
 
-;; geiser
-(add-hook 'geiser-mode-hook      'paredit-mode)
-(add-hook 'geiser-repl-mode-hook 'paredit-mode)
+;;----------------------------------------------------------------------------
+;;-- init.eshell
+;;----------------------------------------------------------------------------
 
-;; iy-go-to-char
-(global-set-key (kbd "C-c f") 'iy-go-to-char)
-(global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
-
-;; ace-jump-mode
-(global-set-key (kbd "C-c j") 'ace-jump-mode)
-
-;; mode-line
-(load "mode-line")
-
-;; eshell
 (load "eshell-conf")
 (add-hook 'after-init-hook 'multishell)
 
 ;; leiningen: eshell/lein
 (require 'lein)
 
-;; proof-general (requires a homebrew install)
+;;----------------------------------------------------------------------------
+;;-- init.mode-line
+;;----------------------------------------------------------------------------
+
+(load "mode-line")
+
+;;----------------------------------------------------------------------------
+;;-- init.proof-general
+;;----------------------------------------------------------------------------
+
 (let ((proof-general-el-file "/usr/local/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el"))
   (when (file-exists-p proof-general-el-file)
     (load-file proof-general-el-file)))
-
-;;----------------------------------------------------------------------------
-;;-- init.navigation
-;;----------------------------------------------------------------------------
-
-(defun helm-mini-or-imenu (imenu?) (interactive "P")
-  (if imenu? (helm-imenu) (helm-mini)))
-
-(global-set-key (kbd "C-c h") 'helm-mini-or-imenu)
-
-(after 'helm
-  (load "color")
-
-  (set-face-attribute 'helm-selection nil
-                      :background (color-theme-color 'base02)
-                      :foreground (color-theme-color 'base2))
-
-  (set-face-attribute 'helm-source-header nil
-                      :height 1.5
-                      :foreground (color-theme-color 'magenta)
-                      :background nil)
-
-  (set-face-attribute 'helm-match nil
-                      :underline t
-                      :inherit nil))
 
 ;;; user-init.el ends here
