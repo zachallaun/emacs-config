@@ -307,6 +307,7 @@
 (setq js2-missing-semi-one-line-override t)
 (add-hook 'js2-mode-hook 'slime-js-minor-mode)
 (add-hook 'js2-mode-hook 'electric-pair-mode)
+(add-hook 'js2-mode-hook 'rainbow-delimiters-mode)
 (global-set-key (kbd "C-c C-r") 'slime-js-reload)
 
 ;; js2-mode steals TAB; steal it back for yasnippet
