@@ -194,6 +194,11 @@
 ;; magit
 (global-set-key (kbd "C-c C-m") 'magit-status)
 
+;; C-c C-k during a commit to cancel
+(eval-after-load 'git-commit-mode
+  '(define-key git-commit-mode-map (kbd "C-c C-k") '(lambda () (interactive)
+                                                      (kill-buffer))))
+
 ;; Ido everywhere
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
