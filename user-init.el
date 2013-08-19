@@ -1,5 +1,14 @@
 ;;; user-init.el --- zachallaun's emacs config
 
+;; Turn off mouse and wheel interface early to avoid momentary display
+(scroll-bar-mode -1)
+(mouse-wheel-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+
+;; no splash screen
+(setq inhibit-splash-screen t)
+
 ;;; Load path ;;;
 ;;;;;;;;;;;;;;;;;
 
@@ -105,10 +114,6 @@
 ;; disable things that are dumb
 (blink-cursor-mode 0)
 (setq visible-bell t) ;; turns off alert bell
-(scroll-bar-mode -1)
-(mouse-wheel-mode -1)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
 
 ;; overried "yes" or "no" prompts to always be "y" or "n" prompts
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -124,9 +129,6 @@
 
 ;; scratch buffer should be empty
 (setq initial-scratch-message "")
-
-;; no splash screen
-(setq inhibit-splash-screen t)
 
 ;; maximized window on open
 (add-hook 'after-init-hook 'toggle-frame-maximized)
