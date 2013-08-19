@@ -194,10 +194,16 @@
 ;; magit
 (global-set-key (kbd "C-c C-m") 'magit-status)
 
-;; C-c C-k during a commit to cancel
 (eval-after-load 'git-commit-mode
-  '(define-key git-commit-mode-map (kbd "C-c C-k") '(lambda () (interactive)
-                                                      (kill-buffer))))
+  '(progn
+     ;; C-c C-k during a commit to cancel
+     (define-key git-commit-mode-map (kbd "C-c C-k") '(lambda () (interactive)
+                                                        (kill-buffer)
+                                                        (other-window 1)))
+
+     ;; switch back to status window after committing
+     (defadvice git-commit-commit (after switch-to-magit-status activate)
+       (other-window 1))))
 
 ;; Ido everywhere
 (setq ido-enable-flex-matching t)
