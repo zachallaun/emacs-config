@@ -194,6 +194,7 @@
 ;; Ido everywhere
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
+(setq ido-case-fold t)
 (ido-mode 1)
 
 ;; don't confirm creation when switching to a non-existant buffer
