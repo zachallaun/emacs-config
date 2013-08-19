@@ -9,20 +9,13 @@
 ;; no splash screen
 (setq inhibit-splash-screen t)
 
-;;; Load path ;;;
-;;;;;;;;;;;;;;;;;
-
-(add-to-list 'load-path "~/.emacs.d/")
-
-;; Manually installed packages in lib/ and extra customization in user/
-(add-to-list 'load-path "~/.emacs.d/lib/")
-(add-to-list 'load-path "~/.emacs.d/user/")
-
-;;; Packages ;;;
-;;;;;;;;;;;;;;;;
+;;----------------------------------------------------------------------------
+;;-- package.el
+;;----------------------------------------------------------------------------
 
 ;; MEPLA and Marmalade
 (require 'package)
+(setq package-user-dir "~/.emacs.d/elpa/")
 (add-to-list 'package-archives
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives
@@ -107,15 +100,29 @@
     (when (not (package-installed-p p))
       (package-install p))))
 
+;;----------------------------------------------------------------------------
+;;-- macros
+;;----------------------------------------------------------------------------
+
 (defmacro after (mode &rest body)
   "After MODE loads, evaluate BODY."
   (declare (indent defun))
   `(eval-after-load ,mode
      '(progn ,@body)))
 
+;;----------------------------------------------------------------------------
+;;-- load path
+;;----------------------------------------------------------------------------
 
-;;; Emacs config ;;;
-;;;;;;;;;;;;;;;;;;;;
+(add-to-list 'load-path "~/.emacs.d/")
+
+;; Manually installed packages in lib/ and extra customization in user/
+(add-to-list 'load-path "~/.emacs.d/lib/")
+(add-to-list 'load-path "~/.emacs.d/user/")
+
+;;----------------------------------------------------------------------------
+;;-- emacs core config
+;;----------------------------------------------------------------------------
 
 ;; no need to garbage collect every 0.76MB
 (setq gc-cons-threshold 20000000)
@@ -204,8 +211,9 @@
 ;; Cmd+Ret to toggle fullscreen
 (global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen)
 
-;;; Package config ;;;
-;;;;;;;;;;;;;;;;;;;;;;
+;;----------------------------------------------------------------------------
+;;-- package config
+;;----------------------------------------------------------------------------
 
 ;; magit
 (global-set-key (kbd "C-c C-m") 'magit-status)
