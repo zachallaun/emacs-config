@@ -94,6 +94,9 @@
 ;;; Emacs config ;;;
 ;;;;;;;;;;;;;;;;;;;;
 
+;; no need to garbage collect every 0.76MB
+(setq gc-cons-threshold 20000000)
+
 ;; disable things that are dumb
 (blink-cursor-mode 0)
 (setq visible-bell t) ;; turns off alert bell
