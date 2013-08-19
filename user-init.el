@@ -101,9 +101,12 @@
     flx-ido
     ))
 
-(dolist (p user-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
+(defun za/install-packages ()
+  "You know... install packages."
+  (dolist (p user-packages)
+    (when (not (package-installed-p p))
+      (package-install p))))
+
 (defmacro after (mode &rest body)
   "After MODE loads, evaluate BODY."
   (declare (indent defun))
