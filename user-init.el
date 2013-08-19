@@ -1,3 +1,5 @@
+;;; user-init.el --- zachallaun's emacs config
+
 ;;; Load path ;;;
 ;;;;;;;;;;;;;;;;;
 
@@ -376,3 +378,5 @@
 (let ((proof-general-el-file "/usr/local/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el"))
   (when (file-exists-p proof-general-el-file)
     (load-file proof-general-el-file)))
+
+;;; user-init.el ends here
