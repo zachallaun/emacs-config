@@ -341,6 +341,11 @@
 (require 'color-theme)
 (require 'color-theme-solarized)
 
+;; color theme
+;; XXX: currently broken and shitty in terminal Emacs
+(setq solarized-italic nil)
+(load-theme 'solarized-dark t)
+
 ;; taken from solarized-definitions.el `solarized-color-definitions`
 (defun color-theme-color (name)
   (let ((index (if window-system
@@ -360,11 +365,6 @@
 (set-face-attribute 'region nil
                     :foreground (color-theme-color 'base02)
                     :background (color-theme-color 'base2))
-
-;; color theme
-;; XXX: currently broken and shitty in terminal Emacs
-(setq solarized-italic nil)
-(load-theme 'solarized-dark t)
 
 ;;----------------------------------------------------------------------------
 ;;-- init.lisp
