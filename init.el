@@ -98,7 +98,10 @@
     flx-ido
 
     ;; narrowing and selection
-    helm))
+    helm
+
+    ;; irc client
+    circe))
 
 ;;----------------------------------------------------------------------------
 ;;-- packages.install
@@ -139,6 +142,14 @@
 ;; Manually installed packages in lib/ and extra customization in user/
 (add-to-list 'load-path "~/.emacs.d/lib/")
 (add-to-list 'load-path "~/.emacs.d/user/")
+
+;;----------------------------------------------------------------------------
+;;-- bootstrap.private
+;;----------------------------------------------------------------------------
+
+(let ((private-file "~/.private.el"))
+  (when (file-exists-p private-file)
+    (load-file private-file)))
 
 ;;----------------------------------------------------------------------------
 ;;-- init.core
@@ -847,5 +858,25 @@ doesn't already exist."
 (let ((proof-general-el-file "/usr/local/share/emacs/site-lisp/ProofGeneral/generic/proof-site.el"))
   (when (file-exists-p proof-general-el-file)
     (load-file proof-general-el-file)))
+
+;;----------------------------------------------------------------------------
+;;-- init.irc
+;;----------------------------------------------------------------------------
+
+(defun freenode-password ()
+  "Returns password if it exists, or nil."
+  (ignore-errors freenode-password))
+
+(setq circe-network-options
+      `(("Freenode"
+         :nick "zachallaun"
+         :channels ("#clojure" "#julia")
+         :nickserv-password ,(freenode-password))))
+
+(setq circe-reduce-lurker-spam t)
+
+(after 'circe
+  (require 'circe-color-nicks)
+  (enable-circe-color-nicks))
 
 ;;; init.el ends here
