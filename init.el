@@ -485,12 +485,13 @@
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
 
 ;;----------------------------------------------------------------------------
-;;-- init.js
+;;-- init.javascript
 ;;----------------------------------------------------------------------------
 
 ;; javascript and js2-mode
 (add-to-list 'auto-mode-alist (cons (rx ".js" eos) 'js2-mode))
 (setq-default js2-basic-offset 2)
+(setq-default js-indent-level 2)
 (setq js2-include-browser-externs t)
 (setq js2-include-node-externs t)
 (setq js2-strict-missing-semi-warning nil)
