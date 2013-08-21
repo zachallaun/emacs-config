@@ -355,7 +355,6 @@
 ;; color theme
 ;; XXX: currently broken and shitty in terminal Emacs
 (setq solarized-italic nil)
-(load-theme 'solarized-dark t)
 
 ;; taken from solarized-definitions.el `solarized-color-definitions`
 (defun color-theme-color (name)
@@ -369,13 +368,27 @@
                    (otherwise 3)))))
     (nth index (assoc name solarized-colors))))
 
-;; make the fringe (left and right borders) the same color as the background
-(set-face-attribute 'fringe nil
-                    :background (color-theme-color 'base03))
+(defun dark ()
+  "Load a dark color theme"
+  (interactive)
+  (load-theme 'solarized-dark t)
+  (set-face-attribute 'fringe nil
+                      :background (color-theme-color 'base03))
+  (set-face-attribute 'region nil
+                      :foreground (color-theme-color 'base01)
+                      :background (color-theme-color 'base2)))
 
-(set-face-attribute 'region nil
-                    :foreground (color-theme-color 'base02)
-                    :background (color-theme-color 'base2))
+(defun light ()
+  "Load a light color theme"
+  (interactive)
+  (load-theme 'solarized-light t)
+  (set-face-attribute 'fringe nil
+                      :background (color-theme-color 'base3))
+  (set-face-attribute 'region nil
+                      :foreground (color-theme-color 'base1)
+                      :background (color-theme-color 'base02)))
+
+(dark)
 
 ;;----------------------------------------------------------------------------
 ;;-- init.lisp
@@ -847,9 +860,9 @@ doesn't already exist."
 (set-custom-mode-line-face-attrs)
 
 ;; set everything again if the theme is toggled between light/dark
-(defadvice color-theme-solarized-light (after load-mode-line activate)
+(defadvice light (after load-mode-line activate)
   (set-custom-mode-line-face-attrs))
-(defadvice color-theme-solarized-dark (after load-mode-line activate)
+(defadvice dark (after load-mode-line activate)
   (set-custom-mode-line-face-attrs))
 
 ;;----------------------------------------------------------------------------
