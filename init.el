@@ -502,8 +502,11 @@
 ;;----------------------------------------------------------------------------
 
 ;; javascript and js2-mode
-(add-to-list 'auto-mode-alist (cons (rx ".js" eos) 'js2-mode))
 (setq-default js2-basic-offset 2)
+(add-hook 'javascript-mode 'electric-pair-mode)
+(add-hook 'javascript-mode 'rainbow-delimiters-mode)
+
+;;(add-to-list 'auto-mode-alist (cons (rx ".js" eos) 'js2-mode))
 (setq-default js-indent-level 2)
 (setq js2-include-browser-externs t)
 (setq js2-include-node-externs t)
