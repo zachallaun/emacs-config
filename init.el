@@ -892,6 +892,9 @@ doesn't already exist."
 
 (setq circe-reduce-lurker-spam t)
 
+;; keep trying to reconnect forever
+(setq circe-server-max-reconnect-attempts nil)
+
 (after 'circe
   (require 'circe-color-nicks)
   (enable-circe-color-nicks))
