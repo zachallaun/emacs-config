@@ -497,6 +497,10 @@
           (lambda ()
             (set (make-local-variable 'sgml-basic-offset) 4)))
 
+;; magit wants C-c C-m; take it from html-mode
+(after 'sgml-mode
+  (define-key html-mode-map (kbd "C-c C-m") nil))
+
 ;;----------------------------------------------------------------------------
 ;;-- init.ruby
 ;;----------------------------------------------------------------------------
