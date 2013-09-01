@@ -225,6 +225,13 @@
 ;; kill buffers with Cmd-w
 (global-set-key (kbd "s-w") '(lambda () (interactive) (kill-buffer (current-buffer))))
 
+;; Don't clutter up directories with files~
+(setq backup-directory-alist `(("." . ,(expand-file-name "~/.emacs.d/backups/"))))
+
+;; Don't clutter with #files either
+(setq auto-save-file-name-transforms
+      `((".*" ,(expand-file-name "~/.emacs.d/backups/"))))
+
 ;;----------------------------------------------------------------------------
 ;;-- init.editor
 ;;----------------------------------------------------------------------------
