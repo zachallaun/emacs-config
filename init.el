@@ -429,7 +429,10 @@
     (pipeline 'defun)
     (while-open 'defun)
     (when-recv 'defun)
-    (if-recv 'defun)))
+    (if-recv 'defun)
+
+    ;; simple-check
+    (for-all 'defun)))
 
 ;;-- init.clojure.nrepl
 (defun nrepl-send-dwim ()
