@@ -63,10 +63,6 @@
     ;; Emacs client for nREPL, an alternative to slime + swank-clojure
     nrepl
 
-    ;; lein.el eshell functions - start a lein process via nrepl to
-    ;; communicate with on subsequent calls
-    lein
-
     ;; Node.js REPL
     nodejs-repl
 
@@ -754,9 +750,6 @@ doesn't already exist."
 
 (defun eshell/vis (program &optional &rest args)
   (apply 'eshell-exec-visual (cons program args)))
-
-;; eshell/lein
-(require 'lein)
 
 ;;----------------------------------------------------------------------------
 ;;-- init.mode-line
