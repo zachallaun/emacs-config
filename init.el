@@ -267,6 +267,51 @@
     (other-window 1)))
 
 ;;----------------------------------------------------------------------------
+;;-- init.color
+;;----------------------------------------------------------------------------
+
+(require 'color-theme)
+(require 'color-theme-solarized)
+
+;; color theme
+;; XXX: currently broken and shitty in terminal Emacs
+(setq solarized-italic nil)
+
+;; taken from solarized-definitions.el `solarized-color-definitions`
+(defun color-theme-color (name)
+  (let ((index (if window-system
+                   (if solarized-degrade
+                       3
+                     (if solarized-broken-srgb 2 1))
+                 (case (display-color-cells)
+                   (16 4)
+                   (8  5)
+                   (otherwise 3)))))
+    (nth index (assoc name solarized-colors))))
+
+(defun dark ()
+  "Load a dark color theme"
+  (interactive)
+  (load-theme 'solarized-dark t)
+  (set-face-attribute 'fringe nil
+                      :background (color-theme-color 'base03))
+  (set-face-attribute 'region nil
+                      :foreground (color-theme-color 'base01)
+                      :background (color-theme-color 'base2)))
+
+(defun light ()
+  "Load a light color theme"
+  (interactive)
+  (load-theme 'solarized-light t)
+  (set-face-attribute 'fringe nil
+                      :background (color-theme-color 'base3))
+  (set-face-attribute 'region nil
+                      :foreground (color-theme-color 'base1)
+                      :background (color-theme-color 'base02)))
+
+(dark)
+
+;;----------------------------------------------------------------------------
 ;;-- init.nav
 ;;----------------------------------------------------------------------------
 
@@ -347,51 +392,6 @@
 ;;----------------------------------------------------------------------------
 
 (yas-global-mode 1)
-
-;;----------------------------------------------------------------------------
-;;-- init.color
-;;----------------------------------------------------------------------------
-
-(require 'color-theme)
-(require 'color-theme-solarized)
-
-;; color theme
-;; XXX: currently broken and shitty in terminal Emacs
-(setq solarized-italic nil)
-
-;; taken from solarized-definitions.el `solarized-color-definitions`
-(defun color-theme-color (name)
-  (let ((index (if window-system
-                   (if solarized-degrade
-                       3
-                     (if solarized-broken-srgb 2 1))
-                 (case (display-color-cells)
-                   (16 4)
-                   (8  5)
-                   (otherwise 3)))))
-    (nth index (assoc name solarized-colors))))
-
-(defun dark ()
-  "Load a dark color theme"
-  (interactive)
-  (load-theme 'solarized-dark t)
-  (set-face-attribute 'fringe nil
-                      :background (color-theme-color 'base03))
-  (set-face-attribute 'region nil
-                      :foreground (color-theme-color 'base01)
-                      :background (color-theme-color 'base2)))
-
-(defun light ()
-  "Load a light color theme"
-  (interactive)
-  (load-theme 'solarized-light t)
-  (set-face-attribute 'fringe nil
-                      :background (color-theme-color 'base3))
-  (set-face-attribute 'region nil
-                      :foreground (color-theme-color 'base1)
-                      :background (color-theme-color 'base02)))
-
-(dark)
 
 ;;----------------------------------------------------------------------------
 ;;-- init.lisp
