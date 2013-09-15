@@ -6,7 +6,6 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
-;; no splash screen
 (setq inhibit-splash-screen t)
 
 ;;----------------------------------------------------------------------------
@@ -157,7 +156,7 @@
 ;; no need to garbage collect every 0.76MB
 (setq gc-cons-threshold 20000000)
 
-;; Run emacs in server mode if running in a GUI
+;; run emacs in server mode if running in a GUI
 (require 'server)
 (if (and window-system (not (server-running-p)))
     (server-start))
