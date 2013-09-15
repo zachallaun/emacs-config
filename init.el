@@ -181,9 +181,6 @@
 ;; scratch buffer should be empty
 (setq initial-scratch-message "")
 
-;; maximized window on open
-(add-hook 'after-init-hook 'toggle-frame-maximized)
-
 ;; automatically revert files when they change
 (global-auto-revert-mode t)
 
