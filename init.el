@@ -45,7 +45,10 @@
     geiser
 
     ;; interface for Git through Emacs
-    magit
+    ;;; TODO: temporarily use a magit checkout while the git-commit
+    ;;; workflow is being worked out
+    ;;; TODO: remove (load "lib/magit")
+    ;; magit
 
     ;; structured editing for Lisp S-expressions and delimiters
     ;; cheatsheet: http://mumble.net/~campbell/emacs/paredit.html
@@ -253,6 +256,10 @@
 ;;----------------------------------------------------------------------------
 ;;-- init.git
 ;;----------------------------------------------------------------------------
+
+;; TODO: remove when switching back to melpa magit
+(add-to-list 'load-path "~/.emacs.d/lib/magit/")
+(require 'magit)
 
 (global-set-key (kbd "C-c C-m") 'magit-status)
 
