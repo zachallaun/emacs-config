@@ -257,7 +257,7 @@
 (add-to-list 'load-path "~/.emacs.d/lib/magit/")
 (require 'magit)
 
-(global-set-key (kbd "C-c C-m") 'magit-status)
+(global-set-key (kbd "C-c m") 'magit-status)
 
 (after 'git-commit-mode
   ;; C-c C-k during a commit to cancel
