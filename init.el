@@ -49,6 +49,10 @@
     ;;; TODO: remove (load "lib/magit")
     ;; magit
 
+    ;; git-related modes
+    gitconfig-mode
+    gitignore-mode
+
     ;; structured editing for Lisp S-expressions and delimiters
     ;; cheatsheet: http://mumble.net/~campbell/emacs/paredit.html
     paredit
