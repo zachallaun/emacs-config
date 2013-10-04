@@ -111,9 +111,12 @@
 
 (defun za/install-packages ()
   "You know... install packages."
+  (interactive)
   (dolist (p user-packages)
     (when (not (package-installed-p p))
       (package-install p))))
+
+(za/install-packages)
 
 ;;----------------------------------------------------------------------------
 ;;-- bootstrap.macros
