@@ -1,9 +1,9 @@
 ;;; init.el --- zachallaun's emacs config
 
 ;; Turn off mouse and wheel interface early to avoid momentary display
-(scroll-bar-mode -1)
-(mouse-wheel-mode -1)
-(tool-bar-mode -1)
+(if window-system (scroll-bar-mode -1))
+(if window-system (mouse-wheel-mode -1))
+(if window-system (tool-bar-mode -1))
 (menu-bar-mode -1)
 
 (setq inhibit-splash-screen t)
@@ -317,6 +317,8 @@
                       :background (color-theme-color 'base02)))
 
 (dark)
+
+(set-face-background hl-line-face "gray13")
 
 ;;----------------------------------------------------------------------------
 ;;-- init.nav
