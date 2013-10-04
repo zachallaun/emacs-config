@@ -300,11 +300,14 @@
   "Load a dark color theme"
   (interactive)
   (load-theme 'solarized-dark t)
+  (color-theme-install-frame-params
+   '((background-color . "black")))
   (set-face-attribute 'fringe nil
                       :background (color-theme-color 'base03))
   (set-face-attribute 'region nil
                       :foreground (color-theme-color 'base01)
-                      :background (color-theme-color 'base2)))
+                      :background (color-theme-color 'base2))
+  (set-face-background hl-line-face "#181818"))
 
 (defun light ()
   "Load a light color theme"
@@ -317,8 +320,6 @@
                       :background (color-theme-color 'base02)))
 
 (dark)
-
-(set-face-background hl-line-face "gray13")
 
 ;;----------------------------------------------------------------------------
 ;;-- init.nav
