@@ -321,7 +321,7 @@
                       :foreground (color-theme-color 'base1)
                       :background (color-theme-color 'base02)))
 
-(dark)
+(add-hook 'after-init-hook 'dark)
 
 ;;----------------------------------------------------------------------------
 ;;-- init.nav
