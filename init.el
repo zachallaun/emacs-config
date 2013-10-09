@@ -38,6 +38,7 @@
     sml-mode
     jade-mode
     yaml-mode
+    js2-mode
 
     ;; slime-like support for scheme
     ;; requires a recent version of racket or guile
@@ -558,6 +559,34 @@
           (indent-for-tab-command)
           (if (looking-back "^\s*")
               (back-to-indentation)))))))
+
+;;----------------------------------------------------------------------------
+;;-- init.javascript.skewer
+;;----------------------------------------------------------------------------
+
+(after 'skewer-mode
+
+  ;; so that it's possible to evaluate w/o the js2 parser
+  (defun skewer-eval-print-region (start end)
+    "Evaluate the region as JavaScript code and insert the result
+into the buffer at the end of the region."
+    (interactive)
+    (let* ((request (skewer-eval (buffer-substring-no-properties start end)
+                                 #'skewer-post-print
+                                 :verbose t))
+           (id (cdr (assoc 'id request)))
+           (pos (cons (current-buffer) end)))
+      (setf (get-cache-table id skewer-eval-print-map) pos)))
+
+  (defun skewer-eval-region (start end &optional print?)
+    "Evaluate the region as JavaScript."
+    (interactive "r\nP")
+    (if print?
+        (skewer-eval-print-region start end)
+      (skewer-eval (buffer-substring-no-properties start end)
+                   #'skewer-post-minibuffer)))
+
+  (define-key js-mode-map (kbd "C-x C-e") 'skewer-eval-region))
 
 ;;----------------------------------------------------------------------------
 ;;-- init.deft
