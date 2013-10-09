@@ -37,7 +37,6 @@
     sml-mode
     jade-mode
     yaml-mode
-    js2-mode
 
     ;; slime-like support for scheme
     ;; requires a recent version of racket or guile
@@ -532,24 +531,24 @@
 ;;-- init.javascript
 ;;----------------------------------------------------------------------------
 
-;; javascript and js2-mode
-(setq-default js2-basic-offset 2)
 (add-hook 'javascript-mode 'electric-pair-mode)
 (add-hook 'javascript-mode 'rainbow-delimiters-mode)
-
-;;(add-to-list 'auto-mode-alist (cons (rx ".js" eos) 'js2-mode))
 (setq-default js-indent-level 2)
-(setq js2-include-browser-externs t)
-(setq js2-include-node-externs t)
-(setq js2-strict-missing-semi-warning nil)
-(setq js2-missing-semi-one-line-override t)
-(add-hook 'js2-mode-hook 'slime-js-minor-mode)
-(add-hook 'js2-mode-hook 'electric-pair-mode)
-(add-hook 'js2-mode-hook 'rainbow-delimiters-mode)
-(global-set-key (kbd "C-c C-r") 'slime-js-reload)
 
-;; js2-mode steals TAB; steal it back for yasnippet
 (after 'js2-mode
+  ;;(add-to-list 'auto-mode-alist (cons (rx ".js" eos) 'js2-mode))
+
+  (setq-default js2-basic-offset 2)
+  (setq js2-include-browser-externs t)
+  (setq js2-include-node-externs t)
+  (setq js2-strict-missing-semi-warning nil)
+  (setq js2-missing-semi-one-line-override t)
+  (add-hook 'js2-mode-hook 'slime-js-minor-mode)
+  (add-hook 'js2-mode-hook 'electric-pair-mode)
+  (add-hook 'js2-mode-hook 'rainbow-delimiters-mode)
+  (global-set-key (kbd "C-c C-r") 'slime-js-reload)
+
+  ;; js2-mode steals TAB; steal it back for yasnippet
   (define-key js2-mode-map (kbd "TAB")
     (lambda()
       (interactive)
