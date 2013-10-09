@@ -745,8 +745,6 @@ doesn't already exist."
 ;;-- init.eshell
 ;;----------------------------------------------------------------------------
 
-(add-hook 'after-init-hook 'multishell)
-
 ;;-- init.eshell.prompt
 (defun git-dir-branch-string (dir)
   "Returns the git branch of the repo containing dir, or nil if
