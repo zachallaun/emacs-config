@@ -33,6 +33,7 @@
     clojure-mode
     markdown-mode
     haml-mode
+    scss-mode
     scala-mode
     sml-mode
     jade-mode
