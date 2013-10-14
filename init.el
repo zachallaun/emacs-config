@@ -305,7 +305,7 @@
   (interactive)
   (load-theme 'solarized-dark t)
   (color-theme-install-frame-params
-   '((background-color . "black")))
+   '((background-color . "gray240")))
   (set-face-attribute 'fringe nil
                       :background (color-theme-color 'base03))
   (set-face-attribute 'region nil
