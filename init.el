@@ -311,7 +311,7 @@
   (set-face-attribute 'region nil
                       :foreground (color-theme-color 'base01)
                       :background (color-theme-color 'base2))
-  (set-face-background hl-line-face "#181818"))
+  (set-face-background hl-line-face (color-theme-color 'base02)))
 
 (defun light ()
   "Load a light color theme"
