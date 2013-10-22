@@ -449,6 +449,7 @@
     (for-all 'defun)))
 
 ;;-- init.clojure.nrepl
+
 (defun nrepl-send-dwim ()
   "Send the appropriate forms to the REPL to be evaluated."
   (interactive)
@@ -459,8 +460,21 @@
     (nrepl-return)
     (other-window 1)))
 
+(defun nrepl-send-reset (refresh?)
+  "Send the form '(do (in-ns 'user) (reset)) to the REPL. Given a
+prefix, send the form '(do (in-ns 'user) (refresh))."
+  (interactive "P")
+  (let ((form (if refresh?
+                  "(do (in-ns 'user) (refresh))"
+                "(do (in-ns 'user) (reset))")))
+    (pop-to-buffer (nrepl-find-or-create-repl-buffer))
+    (insert form)
+    (nrepl-return)
+    (other-window 1)))
+
 (after 'nrepl
   (define-key nrepl-interaction-mode-map (kbd "C-c C-c") 'nrepl-send-dwim)
+  (define-key nrepl-interaction-mode-map (kbd "C-c C-r") 'nrepl-send-reset)
 
   (add-hook 'nrepl-interaction-mode-hook
             'nrepl-turn-on-eldoc-mode))
