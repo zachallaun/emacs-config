@@ -305,8 +305,6 @@
   "Load a dark color theme"
   (interactive)
   (load-theme 'solarized-dark t)
-  (color-theme-install-frame-params
-   '((background-color . "gray240")))
   (set-face-attribute 'fringe nil
                       :background (color-theme-color 'base03))
   (set-face-attribute 'region nil
@@ -324,7 +322,7 @@
                       :foreground (color-theme-color 'base1)
                       :background (color-theme-color 'base02)))
 
-(add-hook 'after-init-hook 'light)
+(add-hook 'after-init-hook 'dark)
 
 ;;----------------------------------------------------------------------------
 ;;-- init.nav
