@@ -328,6 +328,11 @@
 ;;-- init.nav
 ;;----------------------------------------------------------------------------
 
+;; smooth scrolling
+(setq scroll-step 1)
+(setq scroll-conservatively 10000)
+(setq auto-window-vscroll nil)
+
 ;;-- init.nav.helm
 (defun helm-mini-or-imenu (imenu?) (interactive "P")
   (if imenu? (helm-imenu) (helm-mini)))
