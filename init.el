@@ -186,7 +186,8 @@
 (global-hl-line-mode 1)
 
 ;; scratch buffer should be... simpler
-(setq initial-scratch-message ";; scratch")
+(setq initial-scratch-message ";; scratch
+")
 
 ;; automatically revert files when they change
 (global-auto-revert-mode t)
