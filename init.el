@@ -68,7 +68,7 @@
     smex
 
     ;; Emacs client for nREPL, an alternative to slime + swank-clojure
-    nrepl
+    cider
 
     ;; Node.js REPL
     nodejs-repl
