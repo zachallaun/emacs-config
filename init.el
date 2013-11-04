@@ -240,6 +240,11 @@
 (setq auto-save-file-name-transforms
       `((".*" ,(expand-file-name "~/.emacs.d/backups/"))))
 
+;; Extra prefix keys
+(global-unset-key (kbd "C-v"))
+(define-prefix-command 'C-v-map)
+(global-set-key (kbd "C-v") C-v-map)
+
 ;;----------------------------------------------------------------------------
 ;;-- init.editor
 ;;----------------------------------------------------------------------------
@@ -332,6 +337,12 @@
 (setq scroll-step 1)
 (setq scroll-conservatively 10000)
 (setq auto-window-vscroll nil)
+
+;; window navigation
+(global-set-key (kbd "C-v j") 'windmove-down)
+(global-set-key (kbd "C-v k") 'windmove-up)
+(global-set-key (kbd "C-v h") 'windmove-left)
+(global-set-key (kbd "C-v l") 'windmove-right)
 
 ;;-- init.nav.helm
 (defun helm-mini-or-imenu (imenu?) (interactive "P")
