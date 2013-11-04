@@ -251,9 +251,9 @@
 ;; auto-complete for nrepl
 (after 'auto-complete-autoloads
   (require 'ac-nrepl)
-  (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
-  (add-hook 'nrepl-interaction-mode-hook 'ac-nrepl-setup)
-  (add-to-list 'ac-modes 'nrepl-mode))
+  (add-hook 'cider-mode-hook 'ac-nrepl-setup)
+  (add-hook 'cider-mode-hook 'ac-nrepl-setup)
+  (add-to-list 'ac-modes 'cider-mode))
 
 ;; auto-complete symbols for various other modes
 (add-hook 'julia-mode-hook 'auto-complete-mode)
@@ -452,36 +452,37 @@
     ;; simple-check
     (for-all 'defun)))
 
-;;-- init.clojure.nrepl
 
-(defun nrepl-send-dwim ()
+;;-- init.clojure.cider
+
+(defun cider-send-dwim ()
   "Send the appropriate forms to the REPL to be evaluated."
   (interactive)
-  (let ((expr (nrepl-last-expression)))
-    (pop-to-buffer (nrepl-find-or-create-repl-buffer))
+  (let ((expr (cider-last-expression)))
+    (pop-to-buffer (cider-find-or-create-repl-buffer))
     (goto-char (point-max))
     (insert expr)
-    (nrepl-return)
+    (cider-return)
     (other-window 1)))
 
-(defun nrepl-send-reset (refresh?)
+(defun cider-send-reset (refresh?)
   "Send the form '(do (in-ns 'user) (reset)) to the REPL. Given a
 prefix, send the form '(do (in-ns 'user) (refresh))."
   (interactive "P")
   (let ((form (if refresh?
                   "(do (in-ns 'user) (refresh))"
                 "(do (in-ns 'user) (reset))")))
-    (pop-to-buffer (nrepl-find-or-create-repl-buffer))
+    (pop-to-buffer (cider-find-or-create-repl-buffer))
     (insert form)
-    (nrepl-return)
+    (cider-return)
     (other-window 1)))
 
-(after 'nrepl
-  (define-key nrepl-interaction-mode-map (kbd "C-c C-c") 'nrepl-send-dwim)
-  (define-key nrepl-interaction-mode-map (kbd "C-c C-r") 'nrepl-send-reset)
+(after 'cider
+  (define-key cider-mode-map (kbd "C-c C-c") 'cider-send-dwim)
+  (define-key cider-mode-map (kbd "C-c C-r") 'cider-send-reset)
 
-  (add-hook 'nrepl-interaction-mode-hook
-            'nrepl-turn-on-eldoc-mode))
+  (add-hook 'cider-mode-hook
+            'cider-turn-on-eldoc-mode))
 
 ;;----------------------------------------------------------------------------
 ;;-- init.paredit
