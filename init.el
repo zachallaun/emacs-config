@@ -199,7 +199,7 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; font family
-(set-default-font "Source Code Pro-11")
+(set-default-font "Source Code Pro-10")
 
 ;; the cursor should be a bar instead of a block
 (setq-default cursor-type 'bar)
