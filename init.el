@@ -711,8 +711,8 @@ into the buffer at the end of the region."
 
 ;;----------------------------------------------------------------------------
 ;;-- init.mode-line
+;;   http://amitp.blogspot.com/2011/08/emacs-custom-mode-line.html
 ;;----------------------------------------------------------------------------
-;; From: http://amitp.blogspot.com/2011/08/emacs-custom-mode-line.html
 
 ;; Mode line setup
 (setq-default
