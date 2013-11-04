@@ -427,7 +427,8 @@
 (after 'clojure-mode
   (define-clojure-indent
     ;; midje
-    (fact 'defun) (facts 'defun)
+    (fact 'defun)
+    (facts 'defun)
 
     ;; core.logic
     (run* 'defun)
@@ -450,8 +451,11 @@
     (if-recv 'defun)
 
     ;; simple-check
-    (for-all 'defun)))
+    (for-all 'defun)
 
+    ;; random stuff
+    (test 'defun)
+    (go-test-all 'defun)))
 
 ;;-- init.clojure.cider
 
