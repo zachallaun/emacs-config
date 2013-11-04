@@ -739,8 +739,6 @@ into the buffer at the end of the region."
           (t "    ")))
    "  "
    ;; directory and buffer/file name
-   (:propertize (:eval (shorten-directory default-directory 20))
-                face mode-line-folder-face)
    (:propertize "%b"
                 face mode-line-filename-face)
    ;; narrow [default -- keep?]
