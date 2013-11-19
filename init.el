@@ -459,6 +459,8 @@
 
     ;; core.async
     (go 'defun)
+    (go-loop 'defun)
+    (alt! 'defun)
 
     ;; core.async helpers
     (pipeline 'defun)
