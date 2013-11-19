@@ -504,7 +504,15 @@ prefix, send the form '(do (in-ns 'user) (refresh))."
   (define-key cider-mode-map (kbd "C-c C-r") 'cider-send-reset)
 
   (add-hook 'cider-mode-hook
-            'cider-turn-on-eldoc-mode))
+            'cider-turn-on-eldoc-mode)
+
+  (add-hook 'cider-repl-mode-hook 'paredit-mode)
+  (add-hook 'cider-repl-mode-hook 'rainbow-delimiters-mode-enable)
+  (add-hook 'cider-repl-mode-hook
+            (lambda ()
+              (font-lock-mode nil)
+              (clojure-mode-font-lock-setup)
+              (font-lock-mode t))))
 
 ;;----------------------------------------------------------------------------
 ;;-- init.paredit
