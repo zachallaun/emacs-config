@@ -438,6 +438,8 @@
 ;;-- init.clojure
 ;;----------------------------------------------------------------------------
 
+(add-to-list 'auto-mode-alist '("\\.cljx\\'" . clojure-mode))
+
 (after 'clojure-mode
   (define-clojure-indent
     ;; midje
