@@ -208,7 +208,11 @@
 (show-paren-mode 1)
 (setq-default show-paren-style 'parentheses)
 (set-face-attribute 'show-paren-match-face nil
-                    :weight 'bold :underline t)
+                    :weight 'bold
+                    :underline nil
+                    :background nil
+                    :foreground nil
+                    :inverse-video t)
 
 ;; use Emacs terminfo instead of system terminfo
 ;; this fixes terminal rendering issues
