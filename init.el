@@ -453,6 +453,7 @@
     (defne 'defun)
     (project 'defun)
     (matche 'defun)
+    (conde 'defun)
 
     ;; core.match
     (match 'defun)
