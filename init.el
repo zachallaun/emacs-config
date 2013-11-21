@@ -343,10 +343,10 @@
 (setq auto-window-vscroll nil)
 
 ;; window navigation
-(global-set-key (kbd "C-d j") 'windmove-down)
-(global-set-key (kbd "C-d k") 'windmove-up)
-(global-set-key (kbd "C-d h") 'windmove-left)
-(global-set-key (kbd "C-d l") 'windmove-right)
+(global-set-key (kbd "C-d C-j") 'windmove-down)
+(global-set-key (kbd "C-d C-k") 'windmove-up)
+(global-set-key (kbd "C-d C-h") 'windmove-left)
+(global-set-key (kbd "C-d C-l") 'windmove-right)
 ;; paredit rebinds C-d
 (after 'paredit
   (define-key paredit-mode-map (kbd "C-d") nil))
