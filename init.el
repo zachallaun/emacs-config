@@ -261,7 +261,7 @@
 ;; auto-complete for nrepl
 (after 'auto-complete-autoloads
   (require 'ac-nrepl)
-  (add-hook 'cider-mode-hook 'ac-nrepl-setup)
+  (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
   (add-hook 'cider-mode-hook 'ac-nrepl-setup)
   (add-to-list 'ac-modes 'cider-mode))
 
