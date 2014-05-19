@@ -69,6 +69,9 @@
     ;; enhanced Ido-mode-like M-x
     smex
 
+    ;; CommandT-like find file in repository
+    find-file-in-repository
+
     ;; Emacs client for nREPL, an alternative to slime + swank-clojure
     cider
 
@@ -344,6 +347,13 @@
 (setq scroll-conservatively 10000)
 (setq auto-window-vscroll nil)
 
+;; TODO: What I really want here is to be able to press C-d once and
+;; then chain consecutive C-h/j/k/l to move around a bunch. A hacky
+;; way to do this would be to set some bit of state that is nullified
+;; after some timeout, and then define C-h/j/k/l to move windows if
+;; the bit of state is set, and to do their default action if it's
+;; not.
+
 ;; window navigation
 (global-set-key (kbd "C-d j") 'windmove-down)
 (global-set-key (kbd "C-d k") 'windmove-up)
@@ -379,6 +389,7 @@
 
 ;;-- init.nav.ido
 (setq ido-enable-flex-matching t)
+(setq ido-flex-match t)
 (setq ido-everywhere t)
 (setq ido-case-fold t)
 (ido-mode 1)
@@ -425,12 +436,25 @@
 
 ;;-- init.nav.ace-jump
 (global-set-key (kbd "C-c j") 'ace-jump-mode)
+(global-set-key (kbd "C-c J") 'ace-jump-char-mode)
+
+;;-- init.nav.find-file
+(global-set-key (kbd "C-x f") 'find-file-in-repository)
 
 ;;----------------------------------------------------------------------------
 ;;-- init.yas
 ;;----------------------------------------------------------------------------
 
 ;;(yas-global-mode 1)
+
+;;----------------------------------------------------------------------------
+;;-- init.c
+;;----------------------------------------------------------------------------
+
+(add-hook 'c-mode-hook
+          (lambda ()
+            ;; don't hijack C-d in c-mode
+            (local-unset-key (kbd "C-d"))))
 
 ;;----------------------------------------------------------------------------
 ;;-- init.lisp
@@ -479,9 +503,16 @@
     ;; simple-check
     (for-all 'defun)
 
+    ;; core.typed
+    (ann 'defun)
+
     ;; random stuff
     (test 'defun)
-    (go-test-all 'defun)))
+    (go-test-all 'defun)
+
+    ;; om
+    (component 'defun)
+    ))
 
 ;;-- init.clojure.cider
 
@@ -504,7 +535,7 @@ prefix, send the form '(do (in-ns 'user) (refresh))."
                 "(do (in-ns 'user) (reset))")))
     (pop-to-buffer (cider-find-or-create-repl-buffer))
     (insert form)
-    (cider-return)
+    (cider-repl-return)
     (other-window 1)))
 
 (after 'cider
@@ -618,6 +649,12 @@ prefix, send the form '(do (in-ns 'user) (refresh))."
               (back-to-indentation)))))))
 
 ;;----------------------------------------------------------------------------
+;;-- init.jsx
+;;----------------------------------------------------------------------------
+
+(custom-set-variables '(jsx-indent-level 2))
+
+;;----------------------------------------------------------------------------
 ;;-- init.javascript.skewer
 ;;----------------------------------------------------------------------------
 
@@ -644,6 +681,14 @@ into the buffer at the end of the region."
                    #'skewer-post-minibuffer)))
 
   (define-key js-mode-map (kbd "C-x C-e") 'skewer-eval-region))
+
+;;----------------------------------------------------------------------------
+;;-- init.deft
+;;----------------------------------------------------------------------------
+
+(setq scss-compile-at-save nil)
+
+(setq css-indent-offset 2)
 
 ;;----------------------------------------------------------------------------
 ;;-- init.deft
