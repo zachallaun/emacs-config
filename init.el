@@ -41,6 +41,7 @@
     yaml-mode
     js2-mode
     jsx-mode
+    web-mode
 
     ;; slime-like support for scheme
     ;; requires a recent version of racket or guile
