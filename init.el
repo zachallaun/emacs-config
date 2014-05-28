@@ -86,6 +86,7 @@
     jedi
 
     ;; the solarized color theme for use with load-theme
+    solarized-theme
     color-theme-solarized
 
     ;; like 'f' in vim
