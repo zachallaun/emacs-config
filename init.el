@@ -42,6 +42,7 @@
     js2-mode
     jsx-mode
     web-mode
+    elixir-mode
 
     ;; slime-like support for scheme
     ;; requires a recent version of racket or guile
