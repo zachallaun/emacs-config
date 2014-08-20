@@ -475,6 +475,9 @@
 (add-to-list 'auto-mode-alist '("\\.cljx\\'" . clojure-mode))
 
 (after 'clojure-mode
+  (put 'defcomponent 'clojure-backtracking-indent '(4 (2)))
+  (put 'fnk 'clojure-backtracking-indent '((2) 2))
+
   (define-clojure-indent
     ;; midje
     (fact 'defun)
@@ -512,9 +515,13 @@
     ;; random stuff
     (test 'defun)
     (go-test-all 'defun)
+    (context 'defun)
+    (test 'defun)
+    (all-are 'defun)
 
     ;; om
     (component 'defun)
+    (html 'defun)
     ))
 
 ;;-- init.clojure.cider
