@@ -613,11 +613,13 @@ prefix, send the form '(do (in-ns 'user) (refresh))."
 
 (add-hook 'html-mode-hook
           (lambda ()
-            (set (make-local-variable 'sgml-basic-offset) 4)))
+            (set (make-local-variable 'sgml-basic-offset) 2)))
 
 ;; magit wants C-c C-m; take it from html-mode
 (after 'sgml-mode
   (define-key html-mode-map (kbd "C-c C-m") nil))
+
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
 ;;----------------------------------------------------------------------------
 ;;-- init.ruby
