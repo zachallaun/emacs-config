@@ -4,7 +4,6 @@
 (menu-bar-mode -1)
 (when window-system
   (scroll-bar-mode -1)
-  (mouse-wheel-mode -1)
   (tool-bar-mode -1))
 
 (setq inhibit-splash-screen t)
@@ -151,11 +150,15 @@
 ;;-- bootstrap.load-path
 ;;----------------------------------------------------------------------------
 
-(add-to-list 'load-path "~/.emacs.d/")
-
 ;; Manually installed packages in lib/ and extra customization in user/
 (add-to-list 'load-path "~/.emacs.d/lib/")
 (add-to-list 'load-path "~/.emacs.d/user/")
+
+;;----------------------------------------------------------------------------
+;;-- bootstrap.load-path
+;;----------------------------------------------------------------------------
+
+(add-to-list 'exec-path "/usr/local/bin")
 
 ;;----------------------------------------------------------------------------
 ;;-- bootstrap.private
@@ -371,10 +374,17 @@
 (defun helm-mini-or-imenu (imenu?) (interactive "P")
   (if imenu? (helm-imenu) (helm-mini)))
 
+(setq helm-command-prefix-key "C-q")
 (global-set-key (kbd "C-c h") 'helm-mini-or-imenu)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
 (after 'helm
   (load "color")
+
+  (require 'helm-config)
+  (require 'helm-eshell)
+  (require 'helm-files)
+  (require 'helm-grep)
 
   (set-face-attribute 'helm-selection nil
                       :background (color-theme-color 'base02)
@@ -521,7 +531,6 @@
 
     ;; om
     (component 'defun)
-    (html 'defun)
     ))
 
 ;;-- init.clojure.cider
@@ -560,7 +569,7 @@ prefix, send the form '(do (in-ns 'user) (refresh))."
   (add-hook 'cider-repl-mode-hook
             (lambda ()
               (font-lock-mode nil)
-              (clojure-mode-font-lock-setup)
+              (clojure-font-lock-setup)
               (font-lock-mode t))))
 
 ;;----------------------------------------------------------------------------
@@ -633,6 +642,8 @@ prefix, send the form '(do (in-ns 'user) (refresh))."
 ;;-- init.javascript
 ;;----------------------------------------------------------------------------
 
+(add-to-list 'auto-mode-alist '("\\.esn?\\'"  . web-mode))
+
 (add-hook 'javascript-mode 'electric-pair-mode)
 (add-hook 'javascript-mode 'rainbow-delimiters-mode)
 (setq-default js-indent-level 2)
@@ -663,6 +674,13 @@ prefix, send the form '(do (in-ns 'user) (refresh))."
 ;;----------------------------------------------------------------------------
 ;;-- init.jsx
 ;;----------------------------------------------------------------------------
+
+(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+(defadvice web-mode-highlight-part (around tweak-jsx activate)
+  (if (equal web-mode-content-type "jsx")
+      (let ((web-mode-enable-part-face nil))
+        ad-do-it)
+    ad-do-it))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -970,3 +988,4 @@ into the buffer at the end of the region."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:background nil)))))
+(put 'upcase-region 'disabled nil)
