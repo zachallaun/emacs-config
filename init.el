@@ -342,7 +342,7 @@
                       :foreground (color-theme-color 'base1)
                       :background (color-theme-color 'base02)))
 
-(add-hook 'after-init-hook 'dark)
+(add-hook 'after-init-hook 'light)
 
 ;;----------------------------------------------------------------------------
 ;;-- init.nav
@@ -629,6 +629,9 @@ prefix, send the form '(do (in-ns 'user) (refresh))."
   (define-key html-mode-map (kbd "C-c C-m") nil))
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-css-indent-offset 2)
+(setq web-mode-code-indent-offset 2)
 
 ;;----------------------------------------------------------------------------
 ;;-- init.ruby
@@ -642,7 +645,7 @@ prefix, send the form '(do (in-ns 'user) (refresh))."
 ;;-- init.javascript
 ;;----------------------------------------------------------------------------
 
-(add-to-list 'auto-mode-alist '("\\.esn?\\'"  . web-mode))
+(add-to-list 'auto-mode-alist '("\\.esn?\\'"  . js-mode))
 
 (add-hook 'javascript-mode 'electric-pair-mode)
 (add-hook 'javascript-mode 'rainbow-delimiters-mode)
@@ -689,7 +692,7 @@ prefix, send the form '(do (in-ns 'user) (refresh))."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
+    ("1297a022df4228b81bc0436230f211bad168a117282c20ddcba2db8c6a200743" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default)))
  '(jsx-indent-level 2))
 
 ;;----------------------------------------------------------------------------
