@@ -42,6 +42,7 @@
     jsx-mode
     web-mode
     elixir-mode
+    haskell-mode
 
     ;; slime-like support for scheme
     ;; requires a recent version of racket or guile
@@ -479,6 +480,14 @@
 (slime-setup '(slime-repl slime-js))
 
 ;;----------------------------------------------------------------------------
+;;-- init.haskell
+;;----------------------------------------------------------------------------
+
+(after 'haskell-mode
+  (add-hook 'haskell-mode-hook 'haskell-indentation-mode)
+  (add-hook 'haskell-mode-hook 'inf-haskell-mode))
+
+;;----------------------------------------------------------------------------
 ;;-- init.clojure
 ;;----------------------------------------------------------------------------
 
@@ -629,6 +638,13 @@ prefix, send the form '(do (in-ns 'user) (refresh))."
   (define-key html-mode-map (kbd "C-c C-m") nil))
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.es6\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+
+(add-hook 'web-mode-hook
+          (lambda ()
+            (web-mode-set-content-type "jsx")))
+
 (setq web-mode-markup-indent-offset 2)
 (setq web-mode-css-indent-offset 2)
 (setq web-mode-code-indent-offset 2)
