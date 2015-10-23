@@ -48,11 +48,7 @@
     ;; requires a recent version of racket or guile
     geiser
 
-    ;; interface for Git through Emacs
-    ;;; TODO: temporarily use a magit checkout while the git-commit
-    ;;; workflow is being worked out
-    ;;; TODO: remove (load "lib/magit")
-    ;; magit
+    magit
 
     ;; git-related modes
     gitconfig-mode
@@ -283,21 +279,21 @@
 ;;-- init.git
 ;;----------------------------------------------------------------------------
 
-;; TODO: remove when switching back to melpa magit
-(add-to-list 'load-path "~/.emacs.d/lib/magit/")
 (require 'magit)
 
 (global-set-key (kbd "C-c m") 'magit-status)
 
-(after 'git-commit-mode
-  ;; C-c C-k during a commit to cancel
-  (define-key git-commit-mode-map (kbd "C-c C-k") '(lambda () (interactive)
-                                                     (kill-buffer)
-                                                     (other-window 1)))
-
-  ;; switch back to status window after committing
-  (defadvice git-commit-commit (after switch-to-magit-status activate)
-    (other-window 1)))
+(after 'magit-mode-hook
+  (setq magit-push-always-verify nil))
+;; (after 'git-commit-mode
+;;   ;; C-c C-k during a commit to cancel
+;;   (define-key git-commit-mode-map (kbd "C-c C-k") '(lambda () (interactive)
+;;                                                      (kill-buffer)
+;;                                                      (other-window 1)))
+;;
+;;   ;; switch back to status window after committing
+;;   (defadvice git-commit-commit (after switch-to-magit-status activate)
+;;     (other-window 1)))
 
 ;;----------------------------------------------------------------------------
 ;;-- init.color
