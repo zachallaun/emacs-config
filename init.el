@@ -639,7 +639,8 @@ prefix, send the form '(do (in-ns 'user) (refresh))."
 
 (add-hook 'web-mode-hook
           (lambda ()
-            (web-mode-set-content-type "jsx")))
+            (web-mode-set-content-type "jsx")
+            (setq web-mode-attr-indent-offset 2)))
 
 (setq web-mode-markup-indent-offset 2)
 (setq web-mode-css-indent-offset 2)
@@ -652,6 +653,7 @@ prefix, send the form '(do (in-ns 'user) (refresh))."
 ;; recognize Gemfiles and rake files as Ruby
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
+(setq ruby-insert-encoding-magic-comment nil)
 
 ;;----------------------------------------------------------------------------
 ;;-- init.javascript
@@ -736,7 +738,7 @@ into the buffer at the end of the region."
   (define-key js-mode-map (kbd "C-x C-e") 'skewer-eval-region))
 
 ;;----------------------------------------------------------------------------
-;;-- init.deft
+;;-- init.css
 ;;----------------------------------------------------------------------------
 
 (setq scss-compile-at-save nil)
@@ -760,6 +762,7 @@ into the buffer at the end of the region."
 (setq deft-text-mode 'markdown-mode)
 
 ;; deft: use the filename as the note title (compatible with nvALT)
+(setq deft-use-filter-string-for-filename t)
 (setq deft-use-filename-as-title t)
 
 ;; a "stack" note for things that don't deserve their own note
