@@ -179,7 +179,6 @@
 
 ;; disable things that are dumb
 (blink-cursor-mode 0)
-(setq visible-bell t) ;; turns off alert bell
 
 ;; overried "yes" or "no" prompts to always be "y" or "n" prompts
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -998,6 +997,20 @@ into the buffer at the end of the region."
 (after 'circe
   (require 'circe-color-nicks)
   (enable-circe-color-nicks))
+
+;;----------------------------------------------------------------------------
+;;-- init.org
+;;----------------------------------------------------------------------------
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((sql . t)))
+
+(defun custom-org-confirm-babel-eval (lang body)
+  (not (string= lang "sql")))
+(setq org-confirm-babel-evaluate 'custom-org-confirm-babel-eval)
+
+(setq org-src-fontify-natively t)
 
 ;;; init.el ends here
 (custom-set-faces
